@@ -45,7 +45,7 @@ object Dependencies {
 	//dependencies on javascript libs
 	lazy val webjars= Def.setting(Seq(
 		"org.webjars" % "jquery" % Versions.jquery,
-		
+
 		"org.webjars" % "Semantic-UI" % Versions.semanticUI, //css theme, similar to bootstrap
 
 		"org.webjars" % "codemirror" % Versions.codemirror,

@@ -1,20 +1,24 @@
 package org.denigma.preview
 
-import org.denigma.codemirror.{CodeMirror, EditorConfiguration}
 import org.denigma.codemirror.extensions.EditorConfig
-import org.denigma.threejs._
 import org.denigma.threejs.extensions.Container3D
 import org.denigma.threejs.extensions.controls.{CameraControls, JumpCameraControls}
 import org.denigma.threejs.extras.HtmlSprite
-import org.scalajs.dom
 import org.scalajs.dom.MouseEvent
-import org.scalajs.dom.raw.{HTMLTextAreaElement, HTMLElement}
+import org.scalajs.dom.raw.HTMLElement
 
 import scala.scalajs.js
 import scala.util.Random
 import scalatags.JsDom.all._
-
 import org.denigma.codemirror.{CodeMirror, EditorConfiguration}
+import org.denigma.threejs.Colors
+import org.denigma.threejs.cameras.Camera
+import org.denigma.threejs.extras.geometries.BoxGeometry
+import org.denigma.threejs.lights.DirectionalLight
+import org.denigma.threejs.materials.{MeshLambertMaterial, MeshLambertMaterialParameters}
+import org.denigma.threejs.math.{Color, Vector3}
+import org.denigma.threejs.objects.Mesh
+import org.denigma.threejs.scenes.Scene
 import org.scalajs.dom
 import org.scalajs.dom.raw.HTMLTextAreaElement
 
@@ -23,7 +27,7 @@ object Example extends CodeExample
 {
 
   def activate(): Unit = {
-    val el:HTMLElement = dom.document.getElementById("container").asInstanceOf[HTMLElement]
+    val el: HTMLElement = dom.document.getElementById("container").asInstanceOf[HTMLElement]
     val demo = new ExampleScene(el, 1280, 500)
     demo.render()
     activateCode()
@@ -39,10 +43,10 @@ class CodeExample extends ExampleData
   }
 
   def activateCode(id: String, mode: String, code: String): Unit = {
-    val params:EditorConfiguration =EditorConfig.mode(mode).lineNumbers(true).value(code)
+    val params: EditorConfiguration =EditorConfig.mode(mode).lineNumbers(true).value(code)
     val editor = dom.document.getElementById(id) match {
-      case el:HTMLTextAreaElement =>
-        val m = CodeMirror.fromTextArea(el,params)
+      case el: HTMLTextAreaElement =>
+        val m = CodeMirror.fromTextArea(el, params)
         m.getDoc().setValue(code)
       case _=> dom.console.error("cannot find text area for the code!")
     }
@@ -52,7 +56,7 @@ class CodeExample extends ExampleData
 
 class ExampleScene(val container: HTMLElement, val width: Double, val height: Double) extends Container3D
 {
-  val geometry = new BoxGeometry( 350, 300, 250 )
+  val geometry = new BoxGeometry(350, 300, 250)
 
 
   val colors = List("green","red","blue","orange","purple","teal")
@@ -105,10 +109,6 @@ class ExampleScene(val container: HTMLElement, val width: Double, val height: Do
 
 /**
  * Just shows that some effects are working
- * @param cam
- * @param el
- * @param sc
- * @param center
  */
 class ExampleControls(cam:Camera, el:HTMLElement, sc:Scene, width:Double,height:Double,  center:Vector3 = new Vector3()) extends JumpCameraControls(cam,el,sc,width,height,center)
 {

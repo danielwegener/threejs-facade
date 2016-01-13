@@ -1,6 +1,8 @@
 package org.denigma.threejs.extensions
 
-import org.denigma.threejs.{Scene, PerspectiveCamera, Renderer}
+import org.denigma.threejs.Renderer
+import org.denigma.threejs.cameras.PerspectiveCamera
+import org.denigma.threejs.scenes.Scene
 import org.scalajs.dom
 import org.scalajs.dom.raw.HTMLElement
 
