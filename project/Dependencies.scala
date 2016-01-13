@@ -51,7 +51,7 @@ object Dependencies {
 
 		"org.webjars" % "codemirror" % Versions.codemirror,
 
-		"org.webjars.bower" % "three.js" % Versions.threeJs
+		"org.webjars" % "three.js" % Versions.threeJs
 	))
 
 	//common purpose libs

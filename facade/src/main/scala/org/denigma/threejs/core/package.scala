@@ -289,35 +289,62 @@ class Clock extends js.Object {
   def getDelta(): Double = js.native
 }
 
+/**
+  * JavaScript events for custom objects.
+  * @see [[http://threejs.org/docs/#Reference/Core/EventDispatcher]]
+  */
 @js.native
 @JSName("THREE.EventDispatcher")
 class EventDispatcher extends js.Object {
-  def addEventListener(`type`: String, listener: js.Function1[js.Any, Unit]): Unit = js.native
-  def hasEventListener(`type`: String, listener: js.Function1[js.Any, Unit]): Unit = js.native
-  def removeEventListener(`type`: String, listener: js.Function1[js.Any, Unit]): Unit = js.native
+  /**
+    * Adds a listener to an event type.
+    * @param `type` The type of event to listen to.
+    * @param listener The function that gets called when the event is fired.
+    */
+  def addEventListener(`type`: String, listener: js.Function1[js.Any, _]): Unit = js.native
+
+  /**
+    * Checks if listener is added to an event type.
+    * @param `type` The type of event to listen to.
+    * @param listener The function that gets called when the event is fired.
+    */
+  def hasEventListener(`type`: String, listener: js.Function1[js.Any, _]): Unit = js.native
+
+  /**
+    * Removes a listener from an event type.
+    * @param `type` The type of the listener that gets removed.
+    * @param listener The listener function that gets removed.
+    */
+  def removeEventListener(`type`: String, listener: js.Function1[js.Any, _]): Unit = js.native
+
+  /**
+    * Fire an event type.
+    * @param event The event that gets fired.
+    */
   def dispatchEvent(event: js.Any): Unit = js.native
 }
 
+/**
+  * Triangle face.
+  *
+  * @param a Vertex A index.
+  * @param b Vertex B index.
+  * @param c Vertex C index.
+  * @param normal Face normal or array of vertex normals.
+  * @param color Face color or array of vertex colors.
+  * @param materialIndex Material index.
+  * @see [[http://threejs.org/docs/#Reference/Core/Face3]]
+  */
 @js.native
 @JSName("THREE.Face3")
-class Face3 extends js.Object {
-  def this(a: Double, b: Double, c: Double) = this()
-  def this(a: Double, b: Double, c: Double, normal: Vector3) = this()
-  def this(a: Double, b: Double, c: Double, normal: Vector3, color: Color) = this()
-  def this(a: Double, b: Double, c: Double, normal: Vector3, color: Color, materialIndex: Double) = this()
-  def this(a: Double, b: Double, c: Double, normal: Vector3, vertexColors: js.Array[Color]) = this()
-  def this(a: Double, b: Double, c: Double, normal: Vector3, vertexColors: js.Array[Color], materialIndex: Double) = this()
-  def this(a: Double, b: Double, c: Double, vertexNormals: js.Array[Vector3], color: Color, materialIndex: Double) = this()
-  def this(a: Double, b: Double, c: Double, vertexNormals: js.Array[Vector3], vertexColors: js.Array[Color], materialIndex: Double) = this()
-  var a: Double = js.native
-  var b: Double = js.native
-  var c: Double = js.native
-  var normal: Vector3 = js.native
+class Face3(var a: Double, var b: Double, var c: Double, var normal: Vector3 = js.native, var color: Color = js.native, var materialIndex: Double = js.native) extends js.Object {
+  /** Array of 3 vertex normals. */
   var vertexNormals: js.Array[Vector3] = js.native
-  var color: Color = js.native
+  /** Array of 3 vertex colors. */
   var vertexColors: js.Array[Color] = js.native
   var vertexTangents: js.Array[Double] = js.native
-  var materialIndex: Double = js.native
+  def copy(source:Face3): this.type  = js.native
+  /** Creates a new clone of the Face3 object. */
   override def clone(): Face3 = js.native
 }
 
@@ -403,9 +430,9 @@ class Geometry extends js.Object {
   override def clone(): Geometry = js.native
   /** Disposes the object from memory.You need to call this when you want the bufferGeometry removed while the application is running. */
   def dispose(): Unit = js.native
-  def addEventListener(`type`: String, listener: js.Function1[js.Any, Unit]): Unit = js.native
-  def hasEventListener(`type`: String, listener: js.Function1[js.Any, Unit]): Unit = js.native
-  def removeEventListener(`type`: String, listener: js.Function1[js.Any, Unit]): Unit = js.native
+  def addEventListener(`type`: String, listener: js.Function1[js.Any, _]): Unit = js.native
+  def hasEventListener(`type`: String, listener: js.Function1[js.Any, _]): Unit = js.native
+  def removeEventListener(`type`: String, listener: js.Function1[js.Any, _]): Unit = js.native
   def dispatchEvent(event: js.Any): Unit = js.native
 }
 
@@ -525,16 +552,16 @@ class Object3D extends js.Object {
   def updateMatrixWorld(force: Boolean = js.native): Unit = js.native
   /** Creates a new clone of this object and all descendants. */
   def clone(`object`: Object3D = js.native, recursive: Boolean = js.native): this.type = js.native
-  def addEventListener(`type`: String, listener: js.Function1[js.Any, Unit]): Unit = js.native
-  def hasEventListener(`type`: String, listener: js.Function1[js.Any, Unit]): Unit = js.native
-  def removeEventListener(`type`: String, listener: js.Function1[js.Any, Unit]): Unit = js.native
+  def addEventListener(`type`: String, listener: js.Function1[js.Any, _]): Unit = js.native
+  def hasEventListener(`type`: String, listener: js.Function1[js.Any, _]): Unit = js.native
+  def removeEventListener(`type`: String, listener: js.Function1[js.Any, _]): Unit = js.native
   def dispatchEvent(event: js.Any): Unit = js.native
 }
 
 @js.native
 @JSName("THREE.Object3D")
 object Object3D extends js.Object {
-  var DefaultUp: Vector3 = js.native
+  val DefaultUp: Vector3 = js.native
 }
 
 @js.native

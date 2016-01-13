@@ -35,9 +35,9 @@ class Texture extends js.Object {
   override def clone(): Texture = js.native
   def update(): Unit = js.native
   def dispose(): Unit = js.native
-  def addEventListener(`type`: String, listener: js.Function1[js.Any, Unit]): Unit = js.native
-  def hasEventListener(`type`: String, listener: js.Function1[js.Any, Unit]): Unit = js.native
-  def removeEventListener(`type`: String, listener: js.Function1[js.Any, Unit]): Unit = js.native
+  def addEventListener(`type`: String, listener: js.Function1[js.Any, _]): Unit = js.native
+  def hasEventListener(`type`: String, listener: js.Function1[js.Any, _]): Unit = js.native
+  def removeEventListener(`type`: String, listener: js.Function1[js.Any, _]): Unit = js.native
   def dispatchEvent(event: js.Any): Unit = js.native
 }
 

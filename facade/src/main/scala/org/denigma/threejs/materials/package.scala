@@ -120,9 +120,9 @@ class Material extends js.Object {
   def setValues(values: Object): Unit = js.native
   def clone(material: Material): Material = js.native
   def dispose(): Unit = js.native
-  def addEventListener(`type`: String, listener: js.Function1[js.Any, Unit]): Unit = js.native
-  def hasEventListener(`type`: String, listener: js.Function1[js.Any, Unit]): Unit = js.native
-  def removeEventListener(`type`: String, listener: js.Function1[js.Any, Unit]): Unit = js.native
+  def addEventListener(`type`: String, listener: js.Function1[js.Any, _]): Unit = js.native
+  def hasEventListener(`type`: String, listener: js.Function1[js.Any, _]): Unit = js.native
+  def removeEventListener(`type`: String, listener: js.Function1[js.Any, _]): Unit = js.native
   def dispatchEvent(event: js.Any): Unit = js.native
 
   var index0AttributeName: String = js.native

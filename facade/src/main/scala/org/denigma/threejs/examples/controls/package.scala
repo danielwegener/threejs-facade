@@ -10,43 +10,39 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.JSName
 
 @js.native
+@JSName("THREE.FlyControls")
+class FlyControls(camera: Camera = js.native) extends js.Object {
+  def getObject: Object3D = js.native
+  def getDirection: js.Function1[Vector3, Vector3] = js.native
+  var movementSpeed: Double = js.native
+  var rollSpeed: Double = js.native
+  var dragToLook: Boolean = js.native
+  var autoForward: Boolean = js.native
+  def update(delta: Double): Unit = js.native
+  def dispose(): Unit = js.native
+}
+
+
+@js.native
 @JSName("THREE.OrbitControls")
 class OrbitControls(camera: Camera, element: HTMLElement) extends js.Object {
-
   def this(camera: Camera) = this(camera, null)
-
   def rotateLeft(angle: Double): Unit = js.native
-
   def rotateRight(angle: Double): Unit = js.native
-
   def rotateUp(angle: Double): Unit = js.native
-
   def rotateDown(angle: Double): Unit = js.native
-
   def zoomIn(zoomScale: Double): Unit = js.native
-
   def zoomOut(zoomScale: Double): Unit = js.native
-
   def pan(distance: Vector3): Unit = js.native
-
   def update(): Unit = js.native
-
   def getAutoRotationAngle(): Double = js.native
-
   def getZoomScale(): Double = js.native
-
   def onMouseDown(event: dom.MouseEvent): Unit = js.native
-
   def onMouseUp(event: dom.MouseEvent): Unit = js.native
-
   def onMouseWheel(event: dom.MouseEvent): Unit = js.native
-
   def onMouseMove(event: dom.MouseEvent): Unit = js.native
-
   def onKeyDown(event: dom.KeyboardEvent): Unit = js.native
-
   def onKeyUp(event: dom.KeyboardEvent): Unit = js.native
-
 }
 
 @JSName("THREE.PointerLockControls")

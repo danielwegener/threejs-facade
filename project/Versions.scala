@@ -49,7 +49,7 @@ trait WebJarsVersions{
 
 	val semanticUI = "1.12.3"
 
-	val threeJs = "0.73.0"
+	val threeJs = "r73"
 
 	val codemirror = "5.3"
 }
