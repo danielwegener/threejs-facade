@@ -36,9 +36,6 @@ trait Routes extends  PJax{
 
   /**
    * loads page into index. It almost works, the only problem is that I have to change relative pathes in my templates
-   * @param content
-   * @param req
-   * @return
    */
   def loadPage(content:Html)(implicit req:HttpRequest): HttpResponse = {
     val cont = if(isPjax(req))  content.body else html.index(  Some(content ) ).body

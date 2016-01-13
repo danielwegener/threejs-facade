@@ -37,11 +37,11 @@ object Dependencies {
 
 		"org.querki" %%% "jquery-facade" % Versions.jqueryFacade, //scalajs facade for jQuery + jQuery extensions
 
-		"org.querki" %%% "querki-jsext" % Versions.jsext, //useful sclalajs extensions
+		"org.querki" %%% "querki-jsext" % Versions.jsext //useful sclalajs extensions
 
-		"org.denigma" %%% "codemirror-facade" % Versions.codemirrorFacade,
+		//"org.denigma" %%% "codemirror-facade" % Versions.codemirrorFacade,
 
-		"org.denigma" %%% "binding" % Versions.binding
+		//"org.denigma" %%% "binding" % Versions.binding
 	))
 
 	//dependencies on javascript libs
@@ -51,7 +51,7 @@ object Dependencies {
 
 		"org.webjars" % "codemirror" % Versions.codemirror,
 
-		"org.webjars" % "three.js" % Versions.threeJs
+		"org.webjars.bower" % "three.js" % Versions.threeJs
 	))
 
 	//common purpose libs

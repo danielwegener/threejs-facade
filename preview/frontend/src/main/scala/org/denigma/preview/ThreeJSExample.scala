@@ -1,14 +1,18 @@
 package org.denigma.preview
 
-import org.denigma.codemirror.{CodeMirror, EditorConfiguration}
 import org.denigma.codemirror.extensions.EditorConfig
-import org.denigma.threejs._
+import org.denigma.threejs.cameras.Camera
+import org.denigma.threejs.extras.geometries.BoxGeometry
+import org.denigma.threejs.lights.DirectionalLight
+import org.denigma.threejs.materials.{MeshLambertMaterial, MeshLambertMaterialParameters}
+import org.denigma.threejs.math.{Vector3, Color}
+import org.denigma.threejs.objects.Mesh
+import org.denigma.threejs.scenes.Scene
 import org.denigma.threejs.extensions.Container3D
 import org.denigma.threejs.extensions.controls.{CameraControls, JumpCameraControls}
 import org.denigma.threejs.extras.HtmlSprite
-import org.scalajs.dom
 import org.scalajs.dom.MouseEvent
-import org.scalajs.dom.raw.{HTMLTextAreaElement, HTMLElement}
+import org.scalajs.dom.raw.HTMLElement
 
 import scala.scalajs.js
 import scala.util.Random
@@ -21,8 +25,6 @@ import org.scalajs.dom.raw.HTMLTextAreaElement
 
 object Example extends CodeExample
 {
-
-
 
   def activate(): Unit = {
     val el:HTMLElement = dom.document.getElementById("container").asInstanceOf[HTMLElement]
@@ -45,7 +47,7 @@ class CodeExample extends ExampleData
   }
 
   def activateCode(id:String,mode:String,code:String): Unit = {
-    val params:EditorConfiguration =EditorConfig.mode(mode).lineNumbers(true).value(code)
+    val params:EditorConfiguration = EditorConfig.mode(mode).lineNumbers(true).value(code)
     val editor = dom.document.getElementById(id) match {
       case el:HTMLTextAreaElement =>
         val m = CodeMirror.fromTextArea(el,params)
@@ -71,7 +73,7 @@ class ExampleScene(val container:HTMLElement, val width:Double, val height:Doubl
 
   def randColorName = colors(Random.nextInt(colors.size))
 
-  protected def nodeTagFromTitle(title:String,colorName:String) =  textarea(title,`class`:=s"ui large ${colorName} message").render
+  protected def nodeTagFromTitle(title:String,colorName:String) =  textarea(title,`class`:=s"ui large $colorName message").render
 
 
   var meshes = addMesh(new Vector3(0,0,0))::addMesh(new Vector3(400,0,200))::addMesh(new Vector3(-400,0,200))::Nil
@@ -101,9 +103,8 @@ class ExampleScene(val container:HTMLElement, val width:Double, val height:Doubl
   }
 
   meshes.foreach(scene.add)
-  meshes.zipWithIndex.foreach{case (m,i)=>
+  meshes.zipWithIndex.foreach{case (m,_) =>
     this.sprites =  addLabel(m.position.clone().setY(m.position.y+200),"Text #"+i)::this.sprites
-
   }
   sprites.foreach(cssScene.add)
 
@@ -111,10 +112,6 @@ class ExampleScene(val container:HTMLElement, val width:Double, val height:Doubl
 
 /**
  * Just shows that some effects are working
- * @param cam
- * @param el
- * @param sc
- * @param center
  */
 class ExampleControls(cam:Camera, el:HTMLElement, sc:Scene, width:Double,height:Double,  center:Vector3 = new Vector3()) extends JumpCameraControls(cam,el,sc,width,height,center)
 {

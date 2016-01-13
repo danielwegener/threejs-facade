@@ -1,6 +1,9 @@
 package org.denigma.threejs.extensions.controls
 
 import org.denigma.threejs._
+import org.denigma.threejs.cameras.Camera
+import org.denigma.threejs.core.{Raycaster, Object3D}
+import org.denigma.threejs.math.{Vector2, Vector3}
 import org.scalajs.dom
 
 
@@ -20,7 +23,7 @@ trait IntersectionControls
   def findIntersections(x:Double,y:Double) =
   {
     val vector = new Vector3( x, y, 1 )
-    raycaster.setFromCamera(vector, camera)
+    raycaster.setFromCamera(vector.asInstanceOf[Vector2], camera)
     raycaster.intersectObjects( scene.children ).sortWith( (a,b)=>a.point.distanceTo(vector)<b.point.distanceTo(vector)).toList
   }
 

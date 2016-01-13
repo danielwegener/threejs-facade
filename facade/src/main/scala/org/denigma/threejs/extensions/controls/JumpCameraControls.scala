@@ -1,23 +1,18 @@
 package org.denigma.threejs.extensions.controls
 
+import org.denigma.threejs.cameras.Camera
 import org.denigma.threejs.extensions.animations.{Animation, Scheduler}
-import org.denigma.threejs.{Vector3, Scene, Camera}
+import org.denigma.threejs.math.Vector3
+import org.denigma.threejs.scenes.Scene
 import org.scalajs.dom
 import org.scalajs.dom.raw.HTMLElement
-import org.scalajs.dom.{MouseEvent}
+import org.scalajs.dom.MouseEvent
 import scala.concurrent.duration
 import scala.concurrent.duration.Duration
-import scala.concurrent.duration.MILLISECONDS
 import scala.language.postfixOps
 
 /**
  * Camera that changes its center when a click is done on objects
- * @param camera
- * @param element
- * @param scene
- * @param width
- * @param height
- * @param center
  */
 class JumpCameraControls(val camera:Camera,
                          val element:HTMLElement,

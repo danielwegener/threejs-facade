@@ -2,23 +2,23 @@ object Versions extends WebJarsVersions with ScalaJSVersions with SharedVersions
 {
 	val scala = "2.11.6"
 
-	val akkaHttp = "1.0-RC3"
+	val akkaHttp = "2.0.1"
 
-	val ammonite = "0.3.0"
+	val ammonite = "0.4.8"
 
 }
 
 trait ScalaJSVersions {
 
-  val threejsFacade =  "0.0.71-0.1.5"
+  val threejsFacade =  "0.0.73-0.2.0"
 
 	val jqueryFacade = "0.6"
 
 	val jsext = "0.5"
 
-	val dom = "0.8.1"
+	val dom = "0.8.2"
 
-	val codemirrorFacade = "5.3-0.5"
+	val codemirrorFacade = "5.4-0.5"
 
 	val binding = "0.7.15"
 
@@ -35,7 +35,7 @@ trait SharedVersions
 
 	val scalaTags = "0.5.1"
 
-	val scalaCSS = "0.2.0"
+	val scalaCSS = "0.3.1"
 
 	val productCollections = "1.4.2"
 
@@ -49,9 +49,7 @@ trait WebJarsVersions{
 
 	val semanticUI = "1.12.3"
 
-	val selectize = "0.12.1"
-
-	val threeJs = "r71"
+	val threeJs = "0.73.0"
 
 	val codemirror = "5.3"
 }

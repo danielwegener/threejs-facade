@@ -1,6 +1,5 @@
 package org.denigma.preview
 
-import org.denigma.binding.extensions.sq
 import org.denigma.binding.views.BindableView
 import org.denigma.binding.views.utils.ViewInjector
 import org.querki.jquery._
