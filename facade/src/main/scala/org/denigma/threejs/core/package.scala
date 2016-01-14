@@ -476,6 +476,12 @@ class Object3D extends js.Object {
   var matrixWorld: Matrix4 = js.native
   var matrixAutoUpdate: Boolean = js.native
   var matrixWorldNeedsUpdate: Boolean = js.native
+
+  /**
+    * If set to true light will cast dynamic shadows.
+    * Warning: This is expensive and requires tweaking to get shadows looking right.
+    * Default — false.
+    */
   var castShadow: Boolean = js.native
 
   /**

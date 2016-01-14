@@ -2,9 +2,10 @@ package org.denigma.threejs.examples.renderers
 
 import org.denigma.threejs.Renderer
 import org.denigma.threejs.cameras.Camera
-import org.denigma.threejs.math.Color
+import org.denigma.threejs.core.Object3D
+import org.denigma.threejs.math.{Matrix3, Color}
 import org.denigma.threejs.scenes.Scene
-import org.scalajs.dom.raw.HTMLCanvasElement
+import org.scalajs.dom.raw.{HTMLElement, HTMLCanvasElement}
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSName
@@ -41,4 +42,38 @@ class CanvasRenderer extends Renderer {
   def clearDepth(): Unit = js.native
   def clearStencil(): Unit = js.native
   override def render(scene: Scene, camera: Camera): Unit = js.native
+}
+
+
+@js.native
+@JSName("THREE.CSS3DObject")
+class CSS3DObject(element: HTMLElement) extends Object3D {
+
+}
+
+@js.native
+@JSName("THREE.CSS3DSprite")
+class CSS3DSprite(element: HTMLElement) extends CSS3DObject(element) {
+
+}
+
+@js.native
+@JSName("THREE.CSS3DRenderer")
+class CSS3DRenderer extends Renderer {
+
+  //  def render(scene: Scene, camera: Camera): Unit = js.native
+  //  def setSize(width: Double, height: Double, updateStyle: Boolean = js.native): Unit = js.native
+  //  var domElement: HTMLCanvasElement = js.native
+  //def this(parameters: WebGLRendererParameters = js.native) = this()
+
+  def setSize(width: Double, height: Double): Unit = js.native
+
+  def epsilon(value: Double): Double = js.native
+
+  def getObjectCSSMatrix(matrix: Matrix3): String = js.native
+
+  def getCameraCSSMatrix(matrix: Matrix3): String = js.native
+
+  def renderObject(obj: CSS3DObject, camera: Camera): Unit = js.native
+
 }

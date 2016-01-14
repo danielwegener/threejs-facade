@@ -3,6 +3,7 @@ package org.denigma.threejs.extras
 import org.denigma.threejs.Mapping
 import org.denigma.threejs.core.{ Object3D, Geometry }
 import org.denigma.threejs.materials.Material
+import org.denigma.threejs.materials.MeshFaceMaterial
 import org.denigma.threejs.math.{ Color, Vector3 }
 import org.denigma.threejs.objects.Mesh
 import org.denigma.threejs.scenes.Scene
@@ -12,27 +13,70 @@ import org.scalajs.dom.raw.{ HTMLCanvasElement, HTMLImageElement }
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSName
 
+/**
+  * Contains handy functions geometry manipulations.
+  * @see [[http://threejs.org/docs/#Reference/Extras/GeometryUtils]]
+  */
 @js.native
 @JSName("THREE.GeometryUtils")
 object GeometryUtils extends js.Object {
-  def merge(geometry1: Geometry, object2: Mesh, materialIndexOffset: Double = js.native): Unit = js.native
+
+  @deprecated(message = "THREE.GeometryUtils: .merge() has been moved to Geometry. Use geometry.merge( geometry2, matrix, materialIndexOffset ) instead.", since = "r73")
+  def merge(geometry1: Geometry, geometry2: Geometry, materialIndexOffset: Double = js.native): Unit = js.native
+
+  @deprecated(message = "THREE.GeometryUtils: .center() has been moved to Geometry. Use geometry.center() instead.", since = "r73")
   def center(geometry: Geometry): Vector3 = js.native
 }
 
+/**
+  * A Helper class to ease the loading of images of different types.
+  * @see [[http://threejs.org/docs/#Reference/Extras/ImageUtils]]
+  */
 @js.native
 @JSName("THREE.ImageUtils")
 object ImageUtils extends js.Object {
+  /** The crossOrigin string to implement CORS for loading the image from a different domain that allows CORS. */
   var crossOrigin: String = js.native
+
+  @deprecated(message = "THREE.ImageUtils.loadTexture is being deprecated. Use THREE.TextureLoader() instead.", since = "r73")
   def loadTexture(url: String, mapping: Mapping = js.native, onLoad: js.Function1[Texture, Unit] = js.native, onError: js.Function1[String, Unit] = js.native): Texture = js.native
+  @deprecated(message = "THREE.ImageUtils.loadTextureCube is being deprecated. Use THREE.CubeTextureLoader() instead.", since = "r73")
   def loadTextureCube(array: js.Array[String], mapping: Mapping = js.native, onLoad: js.Function1[Texture, Unit] = js.native, onError: js.Function1[String, Unit] = js.native): Texture = js.native
-  def getNormalMap(image: HTMLImageElement, depth: Double = js.native): HTMLCanvasElement = js.native
-  def generateDataTexture(width: Double, height: Double, color: Color): DataTexture = js.native
 }
 
+/**
+  * A class containing useful utility functions for scene manipulation.
+  * @see [[http://threejs.org/docs/#Reference/Extras/SceneUtils]]
+  */
 @js.native
 @JSName("THREE.SceneUtils")
 object SceneUtils extends js.Object {
+  /**
+    * Creates an new Object3D an new mesh for each material defined in materials.
+    * Beware that this is not the same as [[MeshFaceMaterial]] which defines multiple material for 1 mesh.
+    * This is mostly useful for object that need a material and a wireframe implementation.
+    * @param geometry The geometry for the Object.
+    * @param materials The materials for the object.
+    */
   def createMultiMaterialObject(geometry: Geometry, materials: js.Array[Material]): Object3D = js.native
-  def detach(child: Object3D, parent: Object3D, scene: Scene): Unit = js.native
+
+  /**
+    * Attaches the object to the parent without the moving the object in the worldspace.
+    * Beware that to do this the matrixWorld needs to be updated, this can be done by calling the
+    * updateMatrixWorld method on the parent object.
+    * @param child The object to add to the parent
+    * @param scene The scene to detach the object on.
+    * @param parent The parent to attach the object from.
+    */
   def attach(child: Object3D, scene: Scene, parent: Object3D): Unit = js.native
+
+  /**
+    * Detaches the object from the parent and adds it back to the scene without moving in worldspace.
+    * Beware that to do this the matrixWorld needs to be updated, this can be done by calling the
+    * updateMatrixWorld method on the parent object.
+    * @param child The object to remove from the parent
+    * @param parent The scene to attach the object on.
+    * @param scene The parent to detach the object from.
+    */
+  def detach(child: Object3D, parent: Object3D, scene: Scene): Unit = js.native
 }

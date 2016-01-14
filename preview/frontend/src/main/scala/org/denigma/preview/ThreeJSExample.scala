@@ -10,7 +10,7 @@ import org.denigma.threejs.objects.Mesh
 import org.denigma.threejs.scenes.Scene
 import org.denigma.threejs.extensions.Container3D
 import org.denigma.threejs.extensions.controls.{CameraControls, JumpCameraControls}
-import org.denigma.threejs.extras.HtmlSprite
+import org.denigma.threejs.extras.CSS3DSprite
 import org.scalajs.dom.MouseEvent
 import org.scalajs.dom.raw.HTMLElement
 
@@ -78,7 +78,7 @@ class ExampleScene(val container:HTMLElement, val width:Double, val height:Doubl
 
   var meshes = addMesh(new Vector3(0,0,0))::addMesh(new Vector3(400,0,200))::addMesh(new Vector3(-400,0,200))::Nil
 
-  var sprites = List.empty[HtmlSprite]
+  var sprites = List.empty[CSS3DSprite]
 
   override val controls:CameraControls = new ExampleControls(camera,this.container,scene,width,height,this.meshes.head.position.clone())
 
@@ -97,7 +97,7 @@ class ExampleScene(val container:HTMLElement, val width:Double, val height:Doubl
 
   def addLabel(pos:Vector3,title:String = "hello three.js and ScalaJS!") = {
     val helloHtml = nodeTagFromTitle(title,randColorName)
-    val html = new HtmlSprite(helloHtml)
+    val html = new CSS3DSprite(helloHtml)
     html.position.set(pos.x,pos.y,pos.z)
     html
   }

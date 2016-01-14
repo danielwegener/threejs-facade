@@ -3,6 +3,8 @@ package org.denigma.threejs.lights
 import org.denigma.threejs.cameras.Camera
 import org.denigma.threejs.core.Object3D
 import org.denigma.threejs.RenderTarget
+import org.denigma.threejs.materials.MeshLambertMaterial
+import org.denigma.threejs.materials.MeshPhongMaterial
 import org.denigma.threejs.math.{ Vector2, Matrix4, Vector3, Color }
 
 import scala.scalajs.js
@@ -42,24 +44,99 @@ class AmbientLight extends Light {
   def this(hex: Double = js.native) = this()
 }
 
+/**
+  * Affects objects using [[MeshLambertMaterial]] or [[MeshPhongMaterial]].
+  */
 @js.native
 @JSName("THREE.DirectionalLight")
 class DirectionalLight extends Light {
+
+  /**
+    * Creates a light that shines from a specific direction not from a specific position.
+    * This light will behave as though it is infinitely far away and the rays produced from it are all parallel.
+    * The best analogy would be a light source that acts like the sun: the sun is so far away that all sunlight
+    * hitting objects comes from the same angle.
+    * @param hex Numeric value of the RGB component of the color.
+    * @param intensity Numeric value of the light's strength/intensity.
+    */
   def this(hex: Double = js.native, intensity: Double = js.native) = this()
+  /** Target used for shadow camera orientation. */
   var target: Object3D = js.native
+  /** Light's intensity. Default — 1.0.*/
   var intensity: Double = js.native
+  /**
+    * If set to true light will only cast shadow but not contribute any lighting (as if intensity was 0 but cheaper to compute).
+    * Default — false.
+    */
   var onlyShadow: Boolean = js.native
+  /**
+    * Orthographic shadow camera frustum parameter.
+    * Default — 50.
+    */
   var shadowCameraNear: Double = js.native
+  /**
+    * Orthographic shadow camera frustum parameter.
+    * Default — 5000.
+    */
   var shadowCameraFar: Double = js.native
+  /**
+    * Orthographic shadow camera frustum parameter.
+    * Default — -500.
+    */
   var shadowCameraLeft: Double = js.native
+  /**
+    * Orthographic shadow camera frustum parameter.
+    * Default — 500.
+    */
   var shadowCameraRight: Double = js.native
+  /**
+    * Orthographic shadow camera frustum parameter.
+    * Default — 500.
+    */
   var shadowCameraTop: Double = js.native
+  /**
+    * Orthographic shadow camera frustum parameter.
+    * Default — -500.
+    */
   var shadowCameraBottom: Double = js.native
+  /**
+    * Show debug shadow camera frustum.
+    * Default — false.
+    */
   var shadowCameraVisible: Boolean = js.native
+  /**
+    * Shadow map bias, how much to add or subtract from the normalized depth when deciding whether a surface is in shadow.
+    * Default — 0.
+    */
   var shadowBias: Double = js.native
-  var shadowDarkness: Double = js.native
+  /**
+    * Shadow map texture width in pixels.
+    * Default — 512.
+    */
   var shadowMapWidth: Double = js.native
+  /**
+    * Shadow map texture height in pixels.
+    * Default — 512.
+    */
   var shadowMapHeight: Double = js.native
+  /** The shadowMapWidth and shadowMapHeight stored in a [[Vector2]]. Set internally during rendering. */
+  var shadowMapSize: Vector2 = js.native
+  /** The shadow's view of the world. Computed internally during rendering from the shadowCamera* settings. */
+  var shadowCamera: Camera = js.native
+  /** Model to shadow camera space, to compute location and depth in shadow map. Computed internally during rendering. */
+  var shadowMatrix: Matrix4 = js.native
+  /**
+    * The depth map generated using the shadowCamera; a location beyond a pixel's depth is in shadow.
+    * Computed internally during rendering.
+    */
+  var shadowMap: RenderTarget = js.native
+
+  /** It returns a clone of DirectionalLight. */
+  override def clone() : DirectionalLight = js.native
+
+  /** Return DirectionalLight data in JSON format.*/
+  def toJSON():js.Any = js.native
+
   var shadowCascade: Boolean = js.native
   var shadowCascadeOffset: Vector3 = js.native
   var shadowCascadeCount: Double = js.native
@@ -69,10 +146,6 @@ class DirectionalLight extends Light {
   var shadowCascadeNearZ: js.Array[Double] = js.native
   var shadowCascadeFarZ: js.Array[Double] = js.native
   var shadowCascadeArray: js.Array[DirectionalLight] = js.native
-  var shadowMap: RenderTarget = js.native
-  var shadowMapSize: Double = js.native
-  var shadowCamera: Camera = js.native
-  var shadowMatrix: Matrix4 = js.native
 }
 
 /**

@@ -1,7 +1,7 @@
 package org.denigma.threejs.extensions
 
 import org.denigma.threejs.extensions.controls.{ HoverControls, CameraControls }
-import org.denigma.threejs.extras.HtmlRenderer
+import org.denigma.threejs.extras.CSS3DRenderer
 import org.denigma.threejs.renderers.{ WebGLRendererParameters, WebGLRenderer }
 import org.denigma.threejs.scenes.Scene
 import org.scalajs.dom.{ MouseEvent, Event }
@@ -33,10 +33,10 @@ trait Container3D extends SceneContainer {
   }
   val cssScene = new Scene()
 
-  val cssRenderer: HtmlRenderer = this.initCSSRenderer
+  val cssRenderer: CSS3DRenderer = this.initCSSRenderer
 
   protected def initCSSRenderer = {
-    val rendererCSS = new HtmlRenderer()
+    val rendererCSS = new CSS3DRenderer()
     rendererCSS.setSize(width, height)
     rendererCSS.domElement.style.position = "absolute"
     rendererCSS.domElement.style.top = "0"
