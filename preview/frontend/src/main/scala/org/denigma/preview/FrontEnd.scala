@@ -1,11 +1,8 @@
 package org.denigma.preview
 
-import org.denigma.binding.views.BindableView
-import org.denigma.binding.views.utils.ViewInjector
 import org.querki.jquery._
 import org.scalajs.dom
 import org.scalajs.dom.raw.HTMLElement
-import org.denigma.binding.extensions._
 
 import scala.collection.immutable.Map
 import scala.scalajs.js

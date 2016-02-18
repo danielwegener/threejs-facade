@@ -29,6 +29,16 @@ object Curve extends js.Object {
   def create(constructorFunc: js.Function, getPointFunc: js.Function): js.Function = js.native
 }
 
+/**
+ * TextGeometry uses typeface.js generated fonts. Some existing fonts can be found located in /examples/fonts and must be included in the page.
+ */
+@js.native
+@JSName("THREE.Font")
+//TODO: type me
+class Font(val data:js.Any) extends js.Object {
+
+}
+
 @js.native
 @JSName("THREE.Path")
 class Path extends CurvePath {

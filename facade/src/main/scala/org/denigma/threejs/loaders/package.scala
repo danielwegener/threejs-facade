@@ -272,7 +272,6 @@ class MaterialLoader(manager: LoadingManager = js.native) extends LoaderBase[Mat
 
   override def load(url: String, onLoad: js.Function1[Material, _] = js.native, onProgress: js.Function1[ProgressEvent, _] = js.native, onError: js.Function1[js.Any,_] = js.native): Unit = js.native
 
-  override def setCrossOrigin(crossOrigin: String): Unit = js.native
 
   /**
     * Parse a JSON structure and create a new Material of the type json.type with parameters defined in the json object.
@@ -342,8 +341,6 @@ class XHRLoader(manager: LoadingManager = js.native)  extends LoaderBase[js.Any]
 
   /** Can be set to change the response type. */
   var responseType: String = js.native
-  /** The crossOrigin string to implement CORS for loading the url from a different domain that allows CORS. */
-  var crossOrigin: String = js.native
 
   override def load(url: String, onLoad: js.Function1[js.Any, _] = js.native, onProgress: js.Function1[ProgressEvent, _] = js.native, onError: js.Function1[js.Any, _] = js.native): Unit = js.native
 

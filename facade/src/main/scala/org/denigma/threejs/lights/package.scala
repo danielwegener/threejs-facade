@@ -64,11 +64,7 @@ class DirectionalLight extends Light {
   var target: Object3D = js.native
   /** Light's intensity. Default — 1.0.*/
   var intensity: Double = js.native
-  /**
-    * If set to true light will only cast shadow but not contribute any lighting (as if intensity was 0 but cheaper to compute).
-    * Default — false.
-    */
-  var onlyShadow: Boolean = js.native
+
   /**
     * Orthographic shadow camera frustum parameter.
     * Default — 50.
@@ -175,26 +171,48 @@ class PointLight extends Light {
   var distance: Double = js.native
 }
 
+/**
+ * A point light that can cast shadow in one direction.
+ * Affects objects using [[MeshLambertMaterial]] or [[MeshPhongMaterial]].
+ * @param hex Numeric value of the RGB component of the color.
+ * @param intensity Numeric value of the light's strength/intensity. Default 1.0.
+ * @param distance If non-zero, light will attenuate linearly from maximum intensity at light position down to zero at distance. Default 0.0.
+ * @param angle Maximum extent of the spotlight, in radians, from its direction. Should be no more than Math.PI/2. Default Math.PI/3.
+ * @param exponent Rapidity of the falloff of light from its target direction. A lower value spreads out the light, while a higher focuses it towards the center. Default 10.0.
+ * @param decay The amount the light dims along the distance of the light. Default 1.
+ * @see [[http://threejs.org/docs/#Reference/Lights/SpotLight]]
+ */
 @js.native
 @JSName("THREE.SpotLight")
-class SpotLight extends Light {
-  def this(hex: Double = js.native, intensity: Double = js.native, distance: Double = js.native, angle: Double = js.native, exponent: Double = js.native) = this()
+class SpotLight(hex: Double = js.native, var intensity: Double = js.native, var distance: Double = js.native, var angle: Double = js.native, var exponent: Double = js.native, var decay: Double = js.native) extends Light {
+
+  /**
+   * Spotlight focus points at target.position.
+   * Default position — (0,0,0).
+   * Note: Currently for target property to work properly, it must be part of the scene.
+   */
   var target: Object3D = js.native
-  var intensity: Double = js.native
-  var distance: Double = js.native
-  var angle: Double = js.native
-  var exponent: Double = js.native
-  var onlyShadow: Boolean = js.native
+  /** Perspective shadow camera frustum near parameter. Default 50. */
   var shadowCameraNear: Double = js.native
+  /** Perspective shadow camera frustum far parameter. Default 5000. */
   var shadowCameraFar: Double = js.native
+  /** Perspective shadow camera frustum field of view parameter. Default 50. */
   var shadowCameraFov: Double = js.native
+  /** Show debug shadow camera frustum. Default false. */
   var shadowCameraVisible: Boolean = js.native
+  /** Shadow map bias, how much to add or subtract from the normalized depth when deciding whether a surface is in shadow. Default 0. */
   var shadowBias: Double = js.native
   var shadowDarkness: Double = js.native
+  /** Shadow map texture width in pixels. Default 512. */
   var shadowMapWidth: Double = js.native
+  /** Shadow map texture height in pixels. Default 512. */
   var shadowMapHeight: Double = js.native
-  var shadowMap: RenderTarget = js.native
+  /** The shadowMapWidth and shadowMapHeight stored in a [[Vector2]]. Set internally during rendering. */
   var shadowMapSize: Vector2 = js.native
+  /** The shadow's view of the world. Computed internally during rendering from the shadowCamera* settings. */
   var shadowCamera: Camera = js.native
+  /** Model to shadow camera space, to compute location and depth in shadow map. Computed internally during rendering. */
   var shadowMatrix: Matrix4 = js.native
+  /** The depth map generated using the shadowCamera; a location beyond a pixel's depth is in shadow. Computed internally during rendering. */
+  var shadowMap: RenderTarget = js.native
 }

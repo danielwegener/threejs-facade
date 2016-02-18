@@ -147,15 +147,19 @@ class DirectionalLightHelper(var light: DirectionalLight, size: Double = js.nati
 class EdgesHelper(`object`: Object3D, color: Double, thresholdAngle: Double = js.native) extends Line
 
 /**
-  * Renders arrows to visualize an object's face normals. Requires that the object's geometry be an instance of
-  * Geometry (does not work with BufferGeometry), and that face normals have been specified on all faces or
-  * calculated with computeFaceNormals.
-  *
-  * @see [[http://threejs.org/docs/#Reference/Extras.Helpers/FaceNormalsHelper]]
-  */
+ * Renders arrows to visualize an object's face normals. Requires that the object's geometry be an instance of
+ * Geometry (does not work with BufferGeometry), and that face normals have been specified on all faces or
+ * calculated with computeFaceNormals.
+ *
+ * @param `object` object for which to render face normals
+ * @param size     size (length) of the arrows
+ * @param color    color of the arrows
+ * @param linewidth width of the arrow lines
+ * @see [[http://threejs.org/docs/#Reference/Extras.Helpers/FaceNormalsHelper]]
+ */
 @js.native
 @JSName("THREE.FaceNormalsHelper")
-class FaceNormalsHelper(var `object`: Object3D, size: Double = js.native, hex: Double = js.native, linewidth: Double = js.native) extends Line {
+class FaceNormalsHelper(var `object`: Object3D, size: Double = js.native, color: Double = js.native, linewidth: Double = js.native) extends Line {
   /** Updates the face normal preview based on movement of the object. */
   def update(): Unit = js.native
 }

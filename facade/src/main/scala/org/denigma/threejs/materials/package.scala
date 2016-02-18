@@ -7,15 +7,43 @@ import org.denigma.threejs.textures.Texture
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSName
 
+/**
+ * A material for drawing wireframe-style geometries.
+ * @param parameters parameters is an object with one or more properties defining the material's appearance.
+ * @see [[http://threejs.org/docs/#Reference/Materials/LineBasicMaterial]]
+ */
 @JSName("THREE.LineBasicMaterial")
 @js.native
-class LineBasicMaterial extends LineMaterial {
-  def this(parameters: LineBasicMaterialParameters = js.native) = this()
+class LineBasicMaterial(parameters: LineBasicMaterialParameters = js.native) extends LineMaterial {
+  /** Sets the color of the line. Default is 0xffffff. */
   var color: Color = js.native
+  /**
+   * Controls line thickness. Default is 1.
+   * Due to limitations in the ANGLE layer, with the WebGL renderer on Windows platforms linewidth will always be 1 regardless of the set value.
+   */
   var linewidth: Double = js.native
+  /**
+   * Define appearance of line ends. Possible values are "butt", "round" and "square". Default is 'round'.
+   * This setting might not have any effect when used with certain renderers.
+   * For example, it is ignored with the WebGL renderer, but does work with the Canvas renderer.
+   */
   var linecap: String = js.native
+  /**
+   * Define appearance of line joints. Possible values are "round", "bevel" and "miter". Default is 'round'.
+   * This setting might not have any effect when used with certain renderers.
+   * For example, it is ignored with the WebGL renderer, but does work with the Canvas renderer.
+   */
   var linejoin: String = js.native
+  /**
+   * Define how the vertices gets colored. Possible values are THREE.NoColors, THREE.FaceColors and THREE.VertexColors. Default is THREE.NoColors.
+   * This setting might not have any effect when used with certain renderers.
+   */
   var vertexColors: Colors = js.native
+  /**
+   * Define whether the material color is affected by global fog settings.
+   * This setting might not have any effect when used with certain renderers.
+   * For example, it is ignored with the Canvas renderer, but does work with the WebGL renderer.
+   */
   var fog: Boolean = js.native
   override def clone(): LineBasicMaterial = js.native
 }
@@ -131,11 +159,17 @@ class Material extends js.Object {
 
 @js.native
 trait LineBasicMaterialParameters extends MaterialParameters {
+  /** Line color in hexadecimal. Default is 0xffffff. */
   var color: Double = js.native
+  /** Line thickness. Default is 1. */
   var linewidth: Double = js.native
+  /** Define appearance of line ends. Default is 'round'. */
   var linecap: String = js.native
+  /** Define appearance of line joints. Default is 'round'. */
   var linejoin: String = js.native
+  /** Define how the vertices gets colored. Default is [[THREE.NoColors]]. */
   var vertexColors: Colors = js.native
+  /** Define whether the material color is affected by global fog settings. Default is false. */
   var fog: Boolean = js.native
 }
 
@@ -236,51 +270,74 @@ class MeshFaceMaterial extends Material {
   override def clone(): MeshFaceMaterial = js.native
 }
 
+/**
+ *
+ */
 @js.native
 trait MeshLambertMaterialParameters extends MaterialParameters {
+  /** Line color in hexadecimal. Default is 0xffffff. */
   var color: Double = js.native
-  var ambient: Double = js.native
-  var emissive: Double = js.native
-  var wrapAround: Boolean = js.native
-  var wrapRGB: Vector3 = js.native
+  /** Sets the texture map. Default is null  */
   var map: Texture = js.native
+  /** Set light map. Default is null.*/
   var lightMap: Texture = js.native
+  /** Set ao map. Default is null. */
+  var aoMap: Texture = js.native
+  /** Set emissive map. Default is null. */
+  var emissiveMap: Texture = js.native
+  /** Set specular map. Default is null. */
   var specularMap: Texture = js.native
+  /** alpha map. Default is null. */
   var alphaMap: Texture = js.native
+  /** Set env map. Default is null. */
   var envMap: Texture = js.native
-  var combine: Combine = js.native
-  var reflectivity: Double = js.native
-  var refractionRatio: Double = js.native
+  /** Define whether the material color is affected by global fog settings. Default is false. */
   var fog: Boolean = js.native
-  var shading: Shading = js.native
+  /** Render geometry as wireframe. Default is false (i.e. render as smooth shaded). */
   var wireframe: Boolean = js.native
+  /** Controls wireframe thickness. Default is 1. */
   var wireframeLinewidth: Double = js.native
+  /**  Define appearance of line ends. Default is 'round'. */
   var wireframeLinecap: String = js.native
+  /** Define appearance of line joints. Default is 'round'. */
   var wireframeLinejoin: String = js.native
+  /** Define how the vertices gets colored. Default is [[THREE.NoColors]]. */
   var vertexColors: Colors = js.native
+  /** Define whether the material uses skinning. Default is false. */
   var skinning: Boolean = js.native
+  /** Define whether the material uses morphTargets. Default is false. */
   var morphTargets: Boolean = js.native
-  var morphNormals: Boolean = js.native
 }
 
 /**
  * A material for non-shiny (Lambertian) surfaces, evaluated per vertex.
+ * @param parameters is an object with one or more properties defining the material's appearance.
  * @see [[http://threejs.org/docs/#Reference/Materials/MeshLambertMaterial]]
  */
 @js.native
 @JSName("THREE.MeshLambertMaterial")
-class MeshLambertMaterial extends Material {
-  def this(parameters: MeshLambertMaterialParameters = js.native) = this()
+class MeshLambertMaterial(parameters: MeshLambertMaterialParameters = js.native) extends Material {
   /** Diffuse color of the material. Default is white. */
   var color: Color = js.native
   var ambient: Color = js.native
   /** Emissive (light) color of the material, essentially a solid color unaffected by other lighting. Default is black. */
   var emissive: Color = js.native
+  /** Intensity of the emissive light. Modulates the emissive color. Default is 1. */
+  var emissiveIntensity: Double = js.native
+
   var wrapAround: Boolean = js.native
   var wrapRGB: Vector3 = js.native
   /** Set color texture map. Default is null. */
   var map: Texture = js.native
+  /** Set light map. Default is null. The lightMap requires a second set of UVs. */
   var lightMap: Texture = js.native
+  /** Set ambient occlusion map. Default is null. The aoMap requires a second set of UVs.*/
+  var aoMap: Texture = js.native
+  /** Set emisssive (glow) map. Default is null.
+   * The emissive map color is modulated by the emissive color and the emissive intensity.
+   * If you have an emissive map, be sure to set the emissive color to something other than black.
+   */
+  var emissiveMap: Texture = js.native
   /**
    * Since this material does not have a specular component, the specular value affects only how much of
    * the environment map affects the surface. Default is null.
@@ -380,36 +437,36 @@ class MeshNormalMaterial extends Material {
 
 @js.native
 trait MeshPhongMaterialParameters extends MaterialParameters {
+  /** geometry color in hexadecimal. Default is 0xffffff.*/
   var color: Double = js.native
-  var ambient: Double = js.native
-  var emissive: Double = js.native
-  var specular: Double = js.native
-  var shininess: Double = js.native
-  var metal: Boolean = js.native
-  var wrapAround: Boolean = js.native
-  var wrapRGB: Vector3 = js.native
+  /** Set texture map. Default is null */
   var map: Texture = js.native
+  /** Set light map. Default is null */
   var lightMap: Texture = js.native
-  var bumpMap: Texture = js.native
-  var bumpScale: Double = js.native
-  var normalMap: Texture = js.native
-  var normalScale: Vector2 = js.native
+  /** Set ao map. Default is null. */
+  var aoMap: Texture = js.native
+  /** Set emissive map. Default is null. */
+  var emissiveMap: Texture = js.native
+  /** Set specular map. Default is null. */
   var specularMap: Texture = js.native
+  /** Set alpha map. Default is null. */
   var alphaMap: Texture = js.native
+  /** Set displacement map. Default is null. */
+  var displacementMap: Texture = js.native
+  /** Set displacement scale. Default is 1. */
+  var displacementScale: Double = js.native
+  /** Set displacement offset. Default is 0. */
+  var displacementBias: Double = js.native
+  /** Set env map. Default is null. */
   var envMap: Texture = js.native
-  var combine: Combine = js.native
-  var reflectivity: Double = js.native
-  var refractionRatio: Double = js.native
+  /** Define whether the material color is affected by global fog settings. Default is true. */
   var fog: Boolean = js.native
+  /** Define shading type. Default is THREE.SmoothShading. */
   var shading: Shading = js.native
-  var wireframe: Boolean = js.native
-  var wireframeLinewidth: Double = js.native
-  var wireframeLinecap: String = js.native
-  var wireframeLinejoin: String = js.native
-  var vertexColors: Colors = js.native
+  /** Define whether the material uses skinning. Default is false. */
   var skinning: Boolean = js.native
+  /** Define whether the material uses morphTargets. Default is false. */
   var morphTargets: Boolean = js.native
-  var morphNormals: Boolean = js.native
 }
 
 /**
@@ -427,6 +484,8 @@ class MeshPhongMaterial extends Material {
   var ambient: Color = js.native
   /** Emissive (light) color of the material, essentially a solid color unaffected by other lighting. Default is `black`. */
   var emissive: Color = js.native
+  /** Intensity of the emissive light. Modulates the emissive color. Default is 1. */
+  var emissiveIntensity: Double = js.native
   /**
    * Specular color of the material, i.e., how shiny the material is and the color of its shine.
    * Setting this the same color as the diffuse value (times some intensity) makes the material more metallic-looking;
@@ -434,12 +493,7 @@ class MeshPhongMaterial extends Material {
    */
   var specular: Color = js.native
   var shininess: Double = js.native
-  /**
-   * If set to true the shader multiplies the specular highlight by the underlying color of the object,
-   * making it appear to be more metal-like and darker. If set to false the specular highlight is added
-   * ontop of the underlying colors.
-   */
-  var metal: Boolean = js.native
+
   /** Set color texture map. Default is null. The texture map color is modulated by the diffuse color. */
   var map: Texture = js.native
   /** Set light map. Default is null. The lightMap requires a second set of UVs. */
@@ -560,10 +614,20 @@ trait ShaderMaterialParameters extends MaterialParameters {
   var morphNormals: Boolean = js.native
 }
 
+/**
+ * A Material to define multiple materials for the same geometry.
+ * The geometry decides which material is used for which faces by the faces materialindex.
+ * The materialindex corresponds with the index of the material in the materials array.
+ * @see [[http://threejs.org/docs/#Reference/Materials/MultiMaterial]]
+ */
 @js.native
 @JSName("THREE.MultiMaterial")
 class MultiMaterial extends Material {
+  /**
+   * @param materials The materials for the geometry.
+   */
   def this(materials: js.Array[Material] = js.native) = this()
+  /** Get or set the materials for the geometry. */
   var materials: js.Array[Material] = js.native
   /** Creates a clone of this MultiMaterial. */
   override def clone(): MultiMaterial = js.native
@@ -575,6 +639,10 @@ class RawShaderMaterial extends ShaderMaterial {
   def this(parameters: ShaderMaterialParameters = js.native) = this()
 }
 
+/**
+ * Material rendered with custom shaders. A shader is a small program written in GLSL to run on the GPU.
+ * @see [[http://threejs.org/docs/#Reference/Materials/ShaderMaterial]]
+ */
 @js.native
 @JSName("THREE.ShaderMaterial")
 class ShaderMaterial extends Material {

@@ -2,7 +2,7 @@ package org.denigma.threejs.extras.geometries
 
 import org.denigma.threejs.core.{ Face3, Geometry }
 import org.denigma.threejs.extras.core.{ Path, Shape }
-import org.denigma.threejs.math.Vector3
+import org.denigma.threejs.math.{Vector2, Vector3}
 
 import scala.scalajs.js
 import scala.scalajs.js.|
@@ -59,11 +59,6 @@ class BoxGeometry(width: Double, height: Double, depth: Double, widthSegments: D
 class CircleGeometry(var radius: Double = js.native, var segments: Int = js.native,
                      var thetaStart: Double = js.native, var thetaLength: Double = js.native) extends Geometry
 
-
-@js.native
-@JSName("THREE.CubeGeometry")
-@deprecated(message = "Renamed CubeGeometry to BoxGeometry", since = "r73")
-abstract class CubeGeometry extends Geometry
 
 /**
   * A class for generating cylinder geometries
@@ -125,12 +120,15 @@ trait ExtrudeGeometryOptions extends js.Any {
 
 /**
   * Creates extruded geometry from a path shape
-  * @constructor This object extrudes an 2D shape to an 3D geometry.
   * @see [[http://threejs.org/docs/#Reference/Extras.Geometries/ExtrudeGeometry]]
   */
 @js.native
 @JSName("THREE.ExtrudeGeometry")
-class ExtrudeGeometry(shape: Shape | js.Array[Shape], options: ExtrudeGeometryOptions = js.native) extends Geometry {
+class ExtrudeGeometry extends Geometry {
+
+  /** This object extrudes an 2D shape to an 3D geometry. */
+  def this(shape: Shape | js.Array[Shape], options: ExtrudeGeometryOptions = js.native) = this()
+
   /**
     * Adds the shapes to the list to extrude.
     * @param shapes An Array of shapes to add.
@@ -160,9 +158,9 @@ class IcosahedronGeometry(var radius: Double = js.native, var detail: Double = j
 
 /**
   * Class for generating meshes with axial symmetry. Possible uses include donuts, pipes, vases etc.
-  * The lathe rotate around the Z axis.
+  * The lathe rotate around the Y axis.
   *
-  * @param points Array of Vector3s. Since this rotates around Z axis, the y-values can be set to 0
+  * @param points Array of [[Vector2]]s.
   * @param segments the number of circumference segments to generate. Default is 12.
   * @param phiStart the starting angle in radians. Default is 0.
   * @param phiLength the radian (0 to 2PI) range of the lathed section 2PI is a closed lathe, less than 2PI is a portion. Default is 2*PI
@@ -170,7 +168,7 @@ class IcosahedronGeometry(var radius: Double = js.native, var detail: Double = j
   */
 @js.native
 @JSName("THREE.LatheGeometry")
-class LatheGeometry(points: js.Array[Vector3], segments: Double = js.native,
+class LatheGeometry(points: js.Array[Vector2], segments: Double = js.native,
                     phiStart: Double = js.native, phiLength: Double = js.native) extends Geometry
 
 /**

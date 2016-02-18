@@ -29,22 +29,6 @@ object GeometryUtils extends js.Object {
 }
 
 /**
-  * A Helper class to ease the loading of images of different types.
-  * @see [[http://threejs.org/docs/#Reference/Extras/ImageUtils]]
-  */
-@js.native
-@JSName("THREE.ImageUtils")
-object ImageUtils extends js.Object {
-  /** The crossOrigin string to implement CORS for loading the image from a different domain that allows CORS. */
-  var crossOrigin: String = js.native
-
-  @deprecated(message = "THREE.ImageUtils.loadTexture is being deprecated. Use THREE.TextureLoader() instead.", since = "r73")
-  def loadTexture(url: String, mapping: Mapping = js.native, onLoad: js.Function1[Texture, Unit] = js.native, onError: js.Function1[String, Unit] = js.native): Texture = js.native
-  @deprecated(message = "THREE.ImageUtils.loadTextureCube is being deprecated. Use THREE.CubeTextureLoader() instead.", since = "r73")
-  def loadTextureCube(array: js.Array[String], mapping: Mapping = js.native, onLoad: js.Function1[Texture, Unit] = js.native, onError: js.Function1[String, Unit] = js.native): Texture = js.native
-}
-
-/**
   * A class containing useful utility functions for scene manipulation.
   * @see [[http://threejs.org/docs/#Reference/Extras/SceneUtils]]
   */
@@ -53,7 +37,8 @@ object ImageUtils extends js.Object {
 object SceneUtils extends js.Object {
   /**
     * Creates an new Object3D an new mesh for each material defined in materials.
-    * Beware that this is not the same as [[MeshFaceMaterial]] which defines multiple material for 1 mesh.
+    * Beware that this is not the same as [[org.denigma.threejs.materials.MultiMaterial]]
+    *  which defines multiple material for 1 mesh.
     * This is mostly useful for object that need a material and a wireframe implementation.
     * @param geometry The geometry for the Object.
     * @param materials The materials for the object.

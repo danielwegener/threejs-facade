@@ -327,12 +327,12 @@ class EventDispatcher extends js.Object {
 /**
   * Triangle face.
   *
-  * @param a Vertex A index.
-  * @param b Vertex B index.
-  * @param c Vertex C index.
-  * @param normal Face normal or array of vertex normals.
-  * @param color Face color or array of vertex colors.
-  * @param materialIndex Material index.
+  * @param a             Vertex A index.
+  * @param b             Vertex B index.
+  * @param c             Vertex C index.
+  * @param normal        Face normal or array of vertex normals.
+  * @param color         Face color or array of vertex colors.
+  * @param materialIndex Material index (points to [[org.denigma.threejs.materials.MultiMaterial.materials]])
   * @see [[http://threejs.org/docs/#Reference/Core/Face3]]
   */
 @js.native
@@ -378,12 +378,40 @@ class Geometry extends js.Object {
   var colors: js.Array[Color] = js.native
   var faces: js.Array[Face3] = js.native
   var faceVertexUvs: js.Array[js.Array[js.Array[Vector2]]] = js.native
-  /** Array of morph targets. */
-  var morphTargets: js.Array[MorphTarget] = js.native
   var morphColors: js.Array[MorphColor] = js.native
   var morphNormals: js.Array[MorphNormals] = js.native
+  /**
+   * When working with a [[org.denigma.threejs.objects.SkinnedMesh]], each vertex can have up to 4 bones affecting it.
+   * The skinWeights property is an array of weight values that correspond to the
+   * order of the vertices in the geometry. So for instance, the first skinWeight
+   * would correspond to the first vertex in the geometry. Since each vertex can
+   * be modified by 4 bones, a Vector4 is used to represent the skin weights for that vertex.
+   *
+   * The values of the vector should typically be between 0 and 1. For instance
+   * when set to 0 the bone transformation will have no affect. When set to 0.5
+   * it will have 50% affect. When set to 100%, it will have 100% affect.
+   * If there is only 1 bone associated with the vertex then you only need to
+   * worry about the first component of the vector, the rest can be ignored and set to 0.
+   */
   var skinWeights: js.Array[Double] = js.native
+  /**
+   * Just like the skinWeights property, the skinIndices' values correspond to
+   * the geometry's vertices. Each vertex can have up to 4 bones associated with it.
+   * So if you look at the first vertex, and the first skinIndex, this will tell
+   * you the bones associated with that vertex. For example the first vertex
+   * could have a value of ( 10.05, 30.10, 12.12 ). Then the first skin index
+   * could have the value of ( 10, 2, 0, 0 ). The first skin weight could have
+   * the value of ( 0.8, 0.2, 0, 0 ). In affect this would take the first vertex,
+   * and then the bone mesh.bones[10] and apply it 80% of the way. Then it would
+   * take the bone skeleton.bones[2] and apply it 20% of the way. The next two
+   * values have a weight of 0, so they would have no affect.
+   */
   var skinIndices: js.Array[Double] = js.native
+  /**
+   * An array containing distances between vertices for Line geometries.
+   * This is required for LinePieces/[[org.denigma.threejs.materials.LineDashedMaterial]]
+   * to render correctly. Line distances can also be generated with computeLineDistances.
+   */
   var lineDistances: js.Array[Double] = js.native
   /** Bounding box. */
   var boundingBox: BoundingBox3D = js.native

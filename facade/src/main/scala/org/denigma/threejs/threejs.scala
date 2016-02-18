@@ -2,7 +2,7 @@ package org.denigma.threejs
 
 import org.denigma.threejs.cameras.Camera
 import org.denigma.threejs.core._
-import org.denigma.threejs.extras.core.{ Shape, Path, Curve }
+import org.denigma.threejs.extras.core.{Font, Shape, Path, Curve}
 import org.denigma.threejs.extras.geometries.ExtrudeGeometry
 import org.denigma.threejs.lights.Light
 import org.denigma.threejs.loaders.LoadingManager
@@ -586,7 +586,8 @@ trait Matrix[T <: Matrix[T]] extends js.Object {
 
   /**
     * Set this matrix to the inverse of the passed matrix.
-    * @param matrix todo: ???
+   *
+   * @param matrix todo: ???
     * @param throwOnInvertible  If true, throw an error if the matrix is invertible.
     * @return
     */
@@ -774,30 +775,6 @@ object UniformsUtils extends js.Object {
 }
 
 @js.native
-trait TypefaceData extends js.Object {
-  var familyName: String = js.native
-  var cssFontWeight: String = js.native
-  var cssFontStyle: String = js.native
-}
-
-@js.native
-@JSName("THREE.FontUtils")
-object FontUtils extends js.Object {
-  var faces: js.Any = js.native
-  var face: String = js.native
-  var weight: String = js.native
-  var style: String = js.native
-  var size: Double = js.native
-  var divisions: Double = js.native
-  def getFace(): Face3 = js.native
-  def loadFace(data: TypefaceData): TypefaceData = js.native
-  def drawText(text: String): js.Any = js.native
-  def extractGlyphPoints(c: String, face: Face3, scale: Double, offset: Double, path: Path): js.Any = js.native
-  def generateShapes(text: String, parameters: js.Any = js.native): js.Array[Shape] = js.native
-  var Triangulate: js.Any = js.native
-}
-
-@js.native
 trait KeyFrame extends js.Object {
   var pos: js.Array[Double] = js.native
   var rot: js.Array[Double] = js.native
@@ -970,14 +947,18 @@ trait PathAction extends js.Object {
 
 @js.native
 trait TextGeometryParameters extends js.Object {
+  var font: Font = js.native
+  /** Size of the text. */
   var size: Double = js.native
+  /** Thickness to extrude text. Default is 50. */
   var height: Double = js.native
+  /**  Number of points on the curves. Default is 12. */
   var curveSegments: Double = js.native
-  var font: String = js.native
-  var weight: String = js.native
-  var style: String = js.native
+  /** Turn on bevel. Default is False. */
   var bevelEnabled: Boolean = js.native
+  /** How deep into text bevel goes. Default is 10. */
   var bevelThickness: Double = js.native
+  /** How far from text outline is bevel. Default is 8. */
   var bevelSize: Double = js.native
 }
 

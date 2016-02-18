@@ -1,12 +1,11 @@
 package org.denigma.threejs.extensions
 
+import org.denigma.threejs.examples.renderers.CSS3DRenderer
 import org.denigma.threejs.extensions.controls.{ HoverControls, CameraControls }
-import org.denigma.threejs.extras.CSS3DRenderer
 import org.denigma.threejs.renderers.{ WebGLRendererParameters, WebGLRenderer }
 import org.denigma.threejs.scenes.Scene
-import org.scalajs.dom.{ MouseEvent, Event }
 
-import scala.scalajs.js.{ Array, Dynamic }
+import scala.scalajs.js.Dynamic
 
 trait Container3D extends SceneContainer {
 
@@ -16,7 +15,7 @@ trait Container3D extends SceneContainer {
 
   override type RendererType = WebGLRenderer
 
-  protected def initRenderer = {
+  protected def initRenderer() = {
     val params = Dynamic.literal(
       antialias = true,
       alpha     = true

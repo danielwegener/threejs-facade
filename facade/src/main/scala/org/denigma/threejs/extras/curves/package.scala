@@ -17,12 +17,37 @@ abstract class ArcCurve extends Curve[Vector2]{
 }
 
 /**
+ * Create a smooth 3d spline curve from a series of points using the Catmull-Rom algorithm
+ * @constructor points An array of Vector3 points
+ * @see [[http://threejs.org/docs/#Reference/Extras.Curves/CatmullRomCurve3]]
+ */
+@js.native
+@JSName("THREE.CatmullRomCurve3")
+class CatmullRomCurve3 (var points: js.Array[Vector3]) extends Curve[Vector3] {
+
+  sealed trait Type
+  object Type {
+    var centripetal:Type = "centripetal".asInstanceOf[Type]
+    var chordal:Type = "chordal".asInstanceOf[Type]
+    var catmullrom:Type = "catmullrom".asInstanceOf[Type]
+  }
+
+  /** curve loops back onto itself when true. False by default. */
+  var closed: Boolean = js.native
+  /** possible values are `centripetal` (default), `chordal` and `catmullrom` */
+  var `type`: Type = js.native
+  /**  when type is `catmullrom`, defines catmullrom's tension. Defaults to 0.5 */
+  var tension: Double = js.native
+}
+
+/**
   * Create a smooth 3d spline curve from a series of points that loops back onto itself
   * @param points An array of Vector3 points
   * @see [[http://threejs.org/docs/#Reference/Extras.Curves/ClosedSplineCurve3]]
   */
 @js.native
 @JSName("THREE.ClosedSplineCurve3")
+@deprecated(message = "Use CatmullRomCurve3", since = "r74")
 class ClosedSplineCurve3(var points: js.Array[Vector3]) extends Curve[Vector3]
 
 /**
