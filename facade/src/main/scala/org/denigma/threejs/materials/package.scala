@@ -597,21 +597,20 @@ class MeshPhongMaterial extends Material {
 
 @js.native
 trait ShaderMaterialParameters extends MaterialParameters {
-  var defines: js.Any = js.native
-  var uniforms: js.Any = js.native
-  var attributes: js.Any = js.native
-  var vertexShader: String = js.native
-  var fragmentShader: String = js.native
+  /** Define shading type. Default is [[THREE.SmoothShading]]. */
   var shading: Shading = js.native
-  var linewidth: Double = js.native
-  var wireframe: Boolean = js.native
-  var wireframeLinewidth: Double = js.native
+  /** Define whether the material color is affected by global fog settings. Default is true. */
   var fog: Boolean = js.native
-  var lights: Boolean = js.native
+  /** render geometry as wireframe. Default is false. */
+  var wireframe: Boolean = js.native
+  /** Line thickness. Default is 1. */
+  var wireframeLinewidth: Double = js.native
+  /** Define how the vertices gets colored. Default is [[THREE.NoColors]] .*/
   var vertexColors: Colors = js.native
+  /** Define whether the material uses skinning. Default is false. */
   var skinning: Boolean = js.native
+  /** Define whether the material uses morphTargets. Default is false. */
   var morphTargets: Boolean = js.native
-  var morphNormals: Boolean = js.native
 }
 
 /**
@@ -647,39 +646,87 @@ class RawShaderMaterial extends ShaderMaterial {
 @JSName("THREE.ShaderMaterial")
 class ShaderMaterial extends Material {
   def this(parameters: ShaderMaterialParameters = js.native) = this()
-  var defines: js.Any = js.native
+  /** Object specifying the uniforms to be passed to the shader code; keys are uniform names, values are definitions of the form */
   var uniforms: js.Any = js.native
-  var attributes: js.Any = js.native
+  /**
+   * Defines custom constants using *#define* directives within the GLSL code
+   * for both the vertex shader and the fragment shader; each key/value pair yields another directive
+   */
+  var defines: js.Any = js.native
+  /**
+   * Vertex shader GLSL code. This is the actual code for the shader.
+   * In the example above, the vertexShader and fragmentShader code is extracted
+   * from the DOM; it could be passed as a string directly or loaded via AJAX instead.
+   */
   var vertexShader: String = js.native
+  /**
+   * Fragment shader GLSL code. This is the actual code for the shader.
+   * In the example above, the vertexShader and fragmentShader code is extracted from the DOM;
+   * it could be passed as a string directly or loaded via AJAX instead.
+   */
   var fragmentShader: String = js.native
+  /**
+   * Define shading type, which determines whether normals are smoothed between vertices;
+   * possible values are [[THREE.SmoothShading]] or [[THREE.FlatShading]].
+   * Default is [[THREE.SmoothShading]].
+   */
   var shading: Shading = js.native
-  var linewidth: Double = js.native
+  /**
+   * Controls line thickness; only effective if the material is attached to a Line. Default is 1.
+   * Due to limitations in the ANGLE layer, on Windows platforms linewidth will always be 1 regardless of the set value.
+   */
+  var attributes: js.Any = js.native
+  /** Render geometry as wireframe (using GL_LINES instead of GL_TRIANGLES). Default is false (i.e. render as flat polygons). */
   var wireframe: Boolean = js.native
+  /**
+   * Controls wireframe thickness; only effective if the material is attached to a Mesh and wireframe is true. Default is 1.
+   * Due to limitations in the ANGLE layer, on Windows platforms linewidth will always be 1 regardless of the set value.
+   */
   var wireframeLinewidth: Double = js.native
+  /** Define whether the material color is affected by global fog settings; true to pass fog uniforms to the shader. Default is false. */
   var fog: Boolean = js.native
+  /** Defines whether this material uses lighting; true to pass uniform data related to lighting to this shader */
   var lights: Boolean = js.native
+  /**
+   * Define how the vertices are colored, by defining how the colors attribute gets populated.
+   * Possible values are [[THREE.NoColors]], [[THREE.FaceColors]] and [[THREE.VertexColors]]. Default is [[THREE.NoColors]].
+   */
   var vertexColors: Colors = js.native
+  /** Define whether the material uses skinning; true to pass skinning attributes to the shader. Default is false. */
   var skinning: Boolean = js.native
+  /** Defines whether the material uses morphTargets; true morphTarget attributes to this shader */
   var morphTargets: Boolean = js.native
+  /** Defines whether the material uses morphNormals. Set as true to pass morphNormal attributes from the Geometry to the shader. Default is false. */
   var morphNormals: Boolean = js.native
   override def clone(): ShaderMaterial = js.native
 }
 
 @js.native
 trait SpriteMaterialParameters extends MaterialParameters {
+  /** color of the sprite */
   var color: Double = js.native
+  /** the texture map */
   var map: Texture = js.native
+  /** the rotation of the sprite */
   var rotation: Double = js.native
+  /** whether or not to use the scene fog */
   var fog: Boolean = js.native
 }
 
+/**
+ * A material for a Sprite.
+ * @see [[http://threejs.org/docs/#Reference/Materials/SpriteMaterial]]
+ */
 @js.native
 @JSName("THREE.SpriteMaterial")
-class SpriteMaterial extends Material {
-  def this(parameters: SpriteMaterialParameters = js.native) = this()
+class SpriteMaterial(parameters: SpriteMaterialParameters = js.native) extends Material {
+  /** The texture is multiplied by this color. The default is 0xffffff */
   var color: Color = js.native
+  /** The texture map. Default is null.*/
   var map: Texture = js.native
+  /** The rotation of the sprite in radians. Default is 0. */
   var rotation: Double = js.native
+  /** Whether or not this material affected by the scene's fog. Default is false */
   var fog: Boolean = js.native
   override def clone(): SpriteMaterial = js.native
 }

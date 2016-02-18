@@ -16,6 +16,15 @@ import scala.scalajs.js.annotation.JSName
 abstract class ArcCurve extends Curve[Vector2]{
 }
 
+object CatmullRomCurve3 {
+  sealed trait Type
+  object Type {
+    var centripetal:Type = "centripetal".asInstanceOf[Type]
+    var chordal:Type = "chordal".asInstanceOf[Type]
+    var catmullrom:Type = "catmullrom".asInstanceOf[Type]
+  }
+}
+
 /**
  * Create a smooth 3d spline curve from a series of points using the Catmull-Rom algorithm
  * @constructor points An array of Vector3 points
@@ -24,13 +33,7 @@ abstract class ArcCurve extends Curve[Vector2]{
 @js.native
 @JSName("THREE.CatmullRomCurve3")
 class CatmullRomCurve3 (var points: js.Array[Vector3]) extends Curve[Vector3] {
-
-  sealed trait Type
-  object Type {
-    var centripetal:Type = "centripetal".asInstanceOf[Type]
-    var chordal:Type = "chordal".asInstanceOf[Type]
-    var catmullrom:Type = "catmullrom".asInstanceOf[Type]
-  }
+  import CatmullRomCurve3._
 
   /** curve loops back onto itself when true. False by default. */
   var closed: Boolean = js.native

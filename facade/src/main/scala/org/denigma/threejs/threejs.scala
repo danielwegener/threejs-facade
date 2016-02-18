@@ -576,11 +576,11 @@ object ColorKeywords extends js.Object {
 trait Matrix[T <: Matrix[T]] extends js.Object {
   var elements: scala.scalajs.js.typedarray.Float32Array = js.native
   /** Resets this matrix to identity. */
-  def identity(): T = js.native
+  def identity(): this.type = js.native
   /** Copies the values of matrix m into this matrix. */
-  def copy(m: T): T = js.native
+  def copy(m: T): this.type = js.native
   /** Multiplies every component of the matrix by the scalar value s. */
-  def multiplyScalar(s: Double): T = js.native
+  def multiplyScalar(s: Double): this.type = js.native
   /** Computes and returns the determinant of this matrix. */
   def determinant(): Double = js.native
 
@@ -591,9 +591,9 @@ trait Matrix[T <: Matrix[T]] extends js.Object {
     * @param throwOnInvertible  If true, throw an error if the matrix is invertible.
     * @return
     */
-  def getInverse(matrix: T, throwOnInvertible: Boolean = js.native): T = js.native
+  def getInverse(matrix: T, throwOnInvertible: Boolean = js.native): this.type = js.native
   /** Transposes this matrix in place. */
-  def transpose(): T = js.native
+  def transpose(): this.type = js.native
   /** Creates a copy of this matrix. */
   override def clone(): T = js.native
 }
