@@ -664,16 +664,14 @@ class Quaternion(var x: Double = js.native, var y: Double = js.native, var z: Do
    */
   def multiplyQuaternions(a: Quaternion, b: Quaternion): this.type = js.native
   /** Rotates vector by this quaternion into dest. If dest is not specified, result goes to vec. */
-  def multiplyVector3(vector: Vector3, dest: Vector = js.native): Unit = js.native
+  def multiplyVector3(vector: Vector3, dest: Vector3 = js.native): Unit = js.native
   /** Clones this quaternion.*/
   override def clone(): Quaternion = js.native
-
   /**
    * Returns the numerical elements of this quaternion in an array of format (x, y, z, w).
    * @param array Array to store the quaternion.
    */
   def toArray(array:js.Array[Double] = js.native): js.Array[Double] = js.native
-
   /**
    * Compares each component of v to each component of this quaternion to determine if they represent the same rotation.
    * @param v Quaternion that this quaternion will be compared to.
@@ -681,7 +679,6 @@ class Quaternion(var x: Double = js.native, var y: Double = js.native, var z: Do
   def equals(v: Quaternion): Boolean = js.native
   /** Calculates the squared length of the quaternion.*/
   def lengthSq(): Double = js.native
-
   /**
    * Sets this quaternion's component values from an array.
    * @param array Array of format (x, y, z, w) used to construct the quaternion.
@@ -693,7 +690,6 @@ class Quaternion(var x: Double = js.native, var y: Double = js.native, var z: Do
    * direction about the rotational axis.
    */
   def conjugate(): this.type = js.native
-
   /**
    * Handles the spherical linear interpolation between quaternions.
    * t represents the amount of rotation between this quaternion (where t is 0)
@@ -717,82 +713,266 @@ object Quaternion extends js.Object {
   def slerp(qStart: Quaternion, qEnd: Quaternion, qTarget: Quaternion, t: Double): Quaternion = js.native
 }
 
+/**
+  * A ray that emits from an origin in a certain direction.
+  * @constructor Initialises the origin and direction properties to the provided values.
+  * @param origin The origin of the Ray.
+  * @param direction The direction of the Ray. This must be normalized (with [[Vector3.normalize]]) for the methods to operate properly.
+  * @see [[http://threejs.org/docs/#Reference/Math/Ray]]
+  */
 @js.native
 @JSName("THREE.Ray")
-class Ray extends js.Object {
-  def this(origin: Vector3 = js.native, direction: Vector3 = js.native) = this()
-  var origin: Vector3 = js.native
-  var direction: Vector3 = js.native
-  def set(origin: Vector3, direction: Vector3): Ray = js.native
-  def copy(ray: Ray): Ray = js.native
+class Ray(var origin: Vector3 = js.native, var direction: Vector3 = js.native) extends js.Object {
+  /**
+    * Transform this Ray by the Matrix4.
+    * @param matrix4 matrix4 -- Matrix4 The Matrix4 to transform this Ray by.
+    */
+  def applyMatrix4(matrix4: Matrix4): this.type = js.native
+  /**
+    * Get a Vector3 that is a given distance along this Ray.
+    * @param t The distance along the Ray to retrieve a position for.
+    * @param optionalTarget Receives the position along the Ray if passed; otherwise a new Vector3 is created.
+    */
   def at(t: Double, optionalTarget: Vector3 = js.native): Vector3 = js.native
-  def recast(t: Double): Ray = js.native
-  def closestPointToPoint(point: Vector3, optionalTarget: Vector3 = js.native): Vector3 = js.native
-  def distanceToPoint(point: Vector3): Double = js.native
-  def distanceSqToSegment(v0: Vector3, v1: Vector3, optionalPointOnRay: Vector3 = js.native, optionalPointOnSegment: Vector3 = js.native): Double = js.native
-  def isIntersectionSphere(sphere: Sphere): Boolean = js.native
-  def intersectSphere(sphere: Sphere, optionalTarget: Vector3 = js.native): Vector3 = js.native
-  def isIntersectionPlane(plane: Plane): Boolean = js.native
-  def distanceToPlane(plane: Plane): Double = js.native
-  def intersectPlane(plane: Plane, optionalTarget: Vector3 = js.native): Vector3 = js.native
-  def isIntersectionBox(box: Box3): Boolean = js.native
-  def intersectBox(box: Box3, optionalTarget: Vector3 = js.native): Vector3 = js.native
-  def intersectTriangle(a: Vector3, b: Vector3, c: Vector3, backfaceCulling: Boolean, optionalTarget: Vector3 = js.native): Vector3 = js.native
-  def applyMatrix4(matrix4: Matrix4): Ray = js.native
-  def equals(ray: Ray): Boolean = js.native
+  /** Create a clone of this Ray. */
   override def clone(): Ray = js.native
+
+  /**
+    * Get the point along this Ray that is closest to the Vector3 provided.
+    * @param point The point to get the closest approach to.
+    * @param optionalTarget Receives the return value if passed; otherwise a new Vector3 is created.
+    */
+  def closestPointToPoint(point: Vector3, optionalTarget: Vector3 = js.native): Vector3 = js.native
+  /**
+    * Copy the properties of the provided Ray, then return this Ray.
+    * @param ray Ray The Ray to copy values from.
+    */
+  def copy(ray: Ray): this.type = js.native
+  /**
+    * Get the squared distance between this Ray and a line segment.
+    * @param v0 The start of the line segment.
+    * @param v1 The end of the line segment.
+    * @param optionalPointOnRay If this is provided, it receives the point on this Ray that is closest to the segment.
+    * @param optionalPointOnSegment If this is provided, it receives the point on the line segment that is closest to this Ray.
+    */
+  def distanceSqToSegment(v0: Vector3, v1: Vector3, optionalPointOnRay: Vector3 = js.native, optionalPointOnSegment: Vector3 = js.native): Double = js.native
+  /**
+    * Get the distance from the origin to the Plane, or null if the Ray doesn't intersect the Plane.
+    * @param plane Plane The Plane to get the distance to.
+    */
+  def distanceToPlane(plane: Plane): Double = js.native
+  /**
+    * Get the distance of the closest approach between the Ray and the Vector3.
+    * @param point The Vector3 to compute a distance to.
+    */
+  def distanceToPoint(point: Vector3): Double = js.native
+  /**
+    * Get the squared distance of the closest approach between the Ray and the Vector3.
+    * @param point The Vector3 to compute a distance to.
+    */
+  def distanceSqToPoint(point: Vector3): Double = js.native
+  /**
+    * Return whether this and the other Ray have equal offsets and directions.
+    * @param ray Ray The Ray to compare to.
+    */
+  def equals(ray: Ray): Boolean = js.native
+  /**
+    * Intersect this Ray with a Box3, returning the intersection point or null if there is no intersection.
+    * @param box The Box3 to intersect with.
+    * @param optionalTarget The Vector3 to store the result in, or null to create a new Vector3.
+    */
+  def intersectBox(box: Box3, optionalTarget: Vector3 = js.native): Vector3 = js.native
+  /**
+    * Intersect this Ray with a Plane, returning the intersection point or null if there is no intersection.
+    * @param plane The Plane to intersect with.
+    * @param optionalTarget The Vector3 to store the result in, or null to create a new Vector3.
+    */
+  def intersectPlane(plane: Plane, optionalTarget: Vector3 = js.native): Vector3 = js.native
+  /**
+    * Intersect this Ray with a triangle, returning the intersection point or null if there is no intersection.
+    * @param a The Vector3 points on the triangle.
+    * @param b The Vector3 points on the triangle.
+    * @param c The Vector3 points on the triangle.
+    * @param backfaceCulling Whether to use backface culling.
+    * @param optionalTarget The Vector3 to store the result in, or null to create a new Vector3.
+    */
+  def intersectTriangle(a: Vector3, b: Vector3, c: Vector3, backfaceCulling: Boolean, optionalTarget: Vector3 = js.native): Vector3 = js.native
+  /**
+    * Return whether or not this Ray intersects with the Box3.
+    * @param box The Box3 to intersect with.
+    */
+  def intersectsBox(box: Box3): Boolean = js.native
+  /**
+    * Return whether or not this Ray intersects with the Plane.
+    * @param plane The Plane to intersect with.
+    */
+  def intersectsPlane(plane: Plane): Boolean = js.native
+  /**
+    * Return whether or not this Ray intersects with the Sphere.
+    * @param sphere The Sphere to intersect with.
+    */
+  def intersectsSphere(sphere: Sphere): Boolean = js.native
+  /**
+    * Shift the origin of this Ray along its direction by the distance given.
+    * @param t The distance along the Ray to interpolate.
+    */
+  def recast(t: Double): Ray = js.native
+  /**
+    * Copy the parameters to the origin and direction properties.
+    * @param origin The origin of the Ray.
+    * @param direction The direction of the Ray. This must be normalized (with Vector3.normalize) for the methods to operate properly.
+    */
+  def set(origin: Vector3, direction: Vector3): this.type = js.native
+  /**
+    * Adjusts the direction of the ray to point at the vector in world coordinates.
+    * @param v The vector to look at.
+    */
+  def lookAt(v: Vector3): this.type = js.native
 }
 
+/**
+  * A geometric sphere defined by a center position and radius.
+  * @see [[http://threejs.org/docs/#Reference/Math/Sphere]]
+  */
 @js.native
 @JSName("THREE.Sphere")
-class Sphere extends js.Object {
-  def this(center: Vector3 = js.native, radius: Double = js.native) = this()
-  var center: Vector3 = js.native
-  var radius: Double = js.native
-  def set(center: Vector3, radius: Double): Sphere = js.native
-  def setFromPoints(points: js.Array[Vector3], optionalCenter: Vector3 = js.native): Sphere = js.native
-  def copy(sphere: Sphere): Sphere = js.native
-  def empty(): Boolean = js.native
-  def containsPoint(point: Vector3): Boolean = js.native
-  def distanceToPoint(point: Vector3): Double = js.native
-  def intersectsSphere(sphere: Sphere): Boolean = js.native
+class Sphere(var center: Vector3 = js.native, var radius: Double = js.native) extends js.Object {
+  /** Sets the center and radius. */
+  def set(center: Vector3, radius: Double): this.type = js.native
+  /** Transforms this sphere with the provided Matrix4. */
+  def applyMatrix4(matrix: Matrix4): this.type = js.native
+  /**
+    * Clamps a point within the sphere. If the point is is outside the sphere, it will clamp it to the closets point on the edge of the sphere.
+    * @param point The point to clamp
+    * @param optionalTarget The optional target point to return
+    */
   def clampPoint(point: Vector3, optionalTarget: Vector3 = js.native): Vector3 = js.native
-  def getBoundingBox(optionalTarget: Box3 = js.native): Box3 = js.native
-  def applyMatrix4(matrix: Matrix4): Sphere = js.native
-  def translate(offset: Vector3): Sphere = js.native
+  /** Translate the sphere's center by the provided offset vector. */
+  def translate(offset: Vector3): this.type = js.native
+  /** Copies the values of the passed sphere to this sphere. */
+  def copy(sphere: Sphere): this.type = js.native
+  /** Checks to see if the two spheres' centers and radii are equal. */
   def equals(sphere: Sphere): Boolean = js.native
+  /**
+    * Computes the minimum bounding sphere for points. If optionalCenter is given, it is used as the sphere's center. Otherwise, the center of the axis-aligned bounding box encompassing points is calculated.
+    * @param points Array of Vector3 positions.
+    * @param optionalCenter Optional Vector3 position for the sphere's center.
+    */
+  def setFromPoints(points: js.Array[Vector3], optionalCenter: Vector3 = js.native): this.type = js.native
+  /** Returns the closest distance from the boundary of the sphere to the point. If the sphere contains the point, the distance will be negative. */
+  def distanceToPoint(point: Vector3): Double = js.native
+  /** Returns a bounding box for the sphere, optionally setting a provided box target. */
+  def getBoundingBox(optionalTarget: Box3 = js.native): Box3 = js.native
+  /** Checks to see if the sphere contains the provided point inclusive of the edge of the sphere. */
+  def containsPoint(point: Vector3): Boolean = js.native
+  /** Checks to see if two spheres intersect. */
+  def intersectsSphere(sphere: Sphere): Boolean = js.native
+  /** Checks to see if the sphere is empty (the radius set to 0). */
+  def empty(): Boolean = js.native
+  /** Provides a new copy of the sphere. */
   override def clone(): Sphere = js.native
 }
 
+/**
+  * Represents a spline.
+  * @constructor Initialises the spline with points, which are the places through which the spline will go.
+  * @see [[http://threejs.org/docs/#Reference/Math/Spline]]
+  */
 @js.native
 @JSName("THREE.Spline")
-class Spline extends js.Object {
-  def this(points: js.Array[SplineControlPoint]) = this()
-  var points: js.Array[SplineControlPoint] = js.native
+class Spline(var points: js.Array[SplineControlPoint]) extends js.Object {
+  /**
+    * Initialises using the data in the array as a series of points. Each value in a must be another array with three values,
+    * where a[n] is v, the value for the nth point, and v[0], v[1] and v[2] are the x, y and z coordinates of that point n, respectively.
+    * @param a array of triplets containing x, y, z coordinates
+    */
   def initFromArray(a: js.Array[js.Array[Double]]): Unit = js.native
+
+  /**
+    * Return the interpolated point at k.
+    * @param k index
+    */
   def getPoint(k: Double): SplineControlPoint = js.native
+  /** Returns an array with triplets of x, y, z coordinates that correspond to the current control points. */
   def getControlPointsArray(): js.Array[js.Array[Double]] = js.native
-  def getLength(nSubDivisions: Double = js.native): js.Any = js.native
+  /**
+    * Returns an object with the two properties. The property .total contains the length of the spline when using nSubDivisions.
+    * The property .chunkLength contains an array with the total length from the beginning of the spline to the end of that chunk.
+    * @param nSubDivisions number of subdivisions between control points. Default is 100.
+    */
+  def getLength(nSubDivisions: Double = js.native): SplineLength = js.native
+
+  /**
+    * Modifies the spline so that it looks similar to the original but has its points distributed in such way that moving
+    * along the spline it's done at a more or less constant speed. The points should also appear more uniformly spread along the curve.
+    *
+    * This is done by resampling the original spline, with the density of sampling controlled by samplingCoef.
+    * Here it's interesting to note that denser sampling is not necessarily better: if sampling is too high, you may get weird kinks in curvature.
+    * @param samplingCoef how many intermediate values to use between spline points
+    */
   def reparametrizeByArcLength(samplingCoef: Double): Unit = js.native
 }
 
+
+@js.native
+trait SplineLength extends js.Any {
+  /** contains the length of the spline when using nSubDivisions. */
+  var total: Double
+  /** contains an array with the total length from the beginning of the spline to the end of that chunk. */
+  var chunkLength: js.Array[Double]
+}
+
+/**
+  * A geometric triangle as defined by three vectors.
+  * @constructor Sets the triangle's vectors to the passed vectors.
+  * @param a The first Vector3 of the triangle.
+  * @param b The second Vector3 of the triangle.
+  * @param c The third Vector3 of the triangle.
+  * @see [[http://threejs.org/docs/#Reference/Math/Triangle]]
+  */
 @js.native
 @JSName("THREE.Triangle")
-class Triangle extends js.Object {
-  def this(a: Vector3 = js.native, b: Vector3 = js.native, c: Vector3 = js.native) = this()
-  var a: Vector3 = js.native
-  var b: Vector3 = js.native
-  var c: Vector3 = js.native
-  def set(a: Vector3, b: Vector3, c: Vector3): Triangle = js.native
-  def setFromPointsAndIndices(points: js.Array[Vector3], i0: Double, i1: Double, i2: Double): Triangle = js.native
-  def copy(triangle: Triangle): Triangle = js.native
-  def area(): Double = js.native
-  def midpoint(optionalTarget: Vector3 = js.native): Vector3 = js.native
+class Triangle(var a: Vector3 = js.native, var b: Vector3 = js.native, var c: Vector3 = js.native) extends js.Object {
+  /**
+    * Sets the triangle's vectors to the vectors in the array.
+    * @param points Array of Vector3s
+    * @param i0 index
+    * @param i1 index
+    * @param i2 index
+    */
+  def setFromPointsAndIndices(points: js.Array[Vector3], i0: Double, i1: Double, i2: Double): this.type = js.native
+  /** Sets the triangle's vectors to the passed vectors. */
+  def set(a: Vector3, b: Vector3, c: Vector3): this.type = js.native
+  /**
+    * Return the calculated normal of the triangle.
+    * @param optionalTarget Optional Vector3 target to set the result.
+    */
   def normal(optionalTarget: Vector3 = js.native): Vector3 = js.native
-  def plane(optionalTarget: Vector3 = js.native): Plane = js.native
+  /**
+    * Return a barycentric coordinate from the given vector.
+    *
+    * [[http://commons.wikimedia.org/wiki/File:Barycentric_coordinates_1.png Picture of barycentric coordinates]]
+    * @param optionalTarget Optional Vector3 target to set the result.
+    */
   def barycoordFromPoint(point: Vector3, optionalTarget: Vector3 = js.native): Vector3 = js.native
-  def containsPoint(point: Vector3): Boolean = js.native
+  def copy(triangle: Triangle): Triangle = js.native
+  /** Return the area of the triangle. */
+  def area(): Double = js.native
+  /**
+    * Return the midpoint of the triangle. Optionally sets a target vector.
+    * @param optionalTarget Optional Vector3 target to set the result.
+    */
+  def midpoint(optionalTarget: Vector3 = js.native): Vector3 = js.native
+  /** Checks to see if two triangles are equal (share the same vectors). */
   def equals(triangle: Triangle): Boolean = js.native
+  /**
+    * Return a plane based on the triangle. Optionally sets a target plane.
+    * @param optionalTarget Optional Plane target to set the result.
+    */
+  def plane(optionalTarget: Plane = js.native): Plane = js.native
+  /** Checks to see if the passed vector is within the triangle. */
+  def containsPoint(point: Vector3): Boolean = js.native
+  /** Return a new copy of this triangle. */
   override def clone(): Triangle = js.native
 }
 
