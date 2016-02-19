@@ -14,7 +14,7 @@ trait ScalaJSVersions {
 
 	val jsext = "0.5"
 
-	val dom = "0.8.2"
+	val dom = "0.9.0"
 
 	val codemirrorFacade = "5.4-0.5"
 
