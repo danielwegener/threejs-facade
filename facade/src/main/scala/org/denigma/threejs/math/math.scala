@@ -496,7 +496,8 @@ class Matrix4 extends Matrix[Matrix4] {
   /**
    * Sets the rotation submatrix of this matrix to the rotation specified by Euler angles,
    * the rest of the matrix is identity. Default order is "XYZ".
-   * @param euler Rotation vector followed by order of rotations, e.g., "XYZ".
+    *
+    * @param euler Rotation vector followed by order of rotations, e.g., "XYZ".
    */
   def makeRotationFromEuler(euler: Euler): this.type = js.native
   /** Sets the rotation submatrix of this matrix to the rotation specified by q. The rest of the matrix is identity. */
@@ -512,23 +513,27 @@ class Matrix4 extends Matrix[Matrix4] {
 
   /**
    * Sets this matrix as rotation transform around x axis by theta radians.
-   * @param theta Rotation angle in radians.
+    *
+    * @param theta Rotation angle in radians.
    */
   def makeRotationX(theta: Double): this.type = js.native
   /**
    * Sets this matrix as rotation transform around y axis by theta radians.
-   * @param theta Rotation angle in radians.
+    *
+    * @param theta Rotation angle in radians.
    */
   def makeRotationY(theta: Double): this.type = js.native
   /**
    * Sets this matrix as rotation transform around z axis by theta radians.
-   * @param theta Rotation angle in radians.
+    *
+    * @param theta Rotation angle in radians.
    */
   def makeRotationZ(theta: Double): this.type = js.native
   /**
    * Sets this matrix as rotation transform around axis by angle radians.
    * Based on http://www.gamedev.net/reference/articles/article1199.asp.
-   * @param axis Rotation axis, should be normalized.
+    *
+    * @param axis Rotation axis, should be normalized.
    * @param theta Rotation angle in radians.
    */
   def makeRotationAxis(axis: Vector3, theta: Double): this.type = js.native
@@ -543,6 +548,7 @@ class Matrix4 extends Matrix[Matrix4] {
   override def clone(): Matrix4 = js.native
   /**
    * Multiplies (applies) this matrix to every vector3 in the array.
+    *
     * @param a An array in the form [vector1x, vector1y, vector1z, vector2x, vector2y, vector2z, ...]
    */
   def applyToVector3Array(a: js.Array[Vector3]): js.Array[Vector3] = js.native
@@ -552,7 +558,8 @@ class Matrix4 extends Matrix[Matrix4] {
 
 /**
  * A two dimensional surface that extends infinitely in 3d space.
- * @param normal normal vector defining the plane pointing towards the origin
+  *
+  * @param normal normal vector defining the plane pointing towards the origin
  * @param constant the negative distance from the origin to the plane along the normal vector
  * @see [[http://threejs.org/docs/#Reference/Math/Plane]]
  */
@@ -568,7 +575,8 @@ class Plane(var normal: Vector3 = js.native, var constant: Double = js.native) e
 
   /**
    * Apply a Matrix4 to the plane. The second parameter is optional.
-   * @param matrix Matrix4 to apply
+    *
+    * @param matrix Matrix4 to apply
    * @param optionalNormalMatrix (optional) pre-computed normal Matrix3 of the Matrix4 to apply
    */
   def applyMatrix4(matrix: Matrix4, optionalNormalMatrix: Matrix3 = js.native): this.type = js.native
@@ -592,7 +600,8 @@ class Plane(var normal: Vector3 = js.native, var constant: Double = js.native) e
   def equals(plane: Plane): Boolean = js.native
   /**
    * Set the individual components that make up the plane.
-   * @param x x of the normal vector
+    *
+    * @param x x of the normal vector
    * @param y y of the normal vector
    * @param z z of the normal vector
    * @param w distance of the plane from the origin along the normal vector
@@ -619,7 +628,8 @@ class Plane(var normal: Vector3 = js.native, var constant: Double = js.native) e
 
 /**
  * Implementation of a quaternion. This is used for rotating things without encountering the dreaded gimbal lock issue, amongst other advantages.
- * @param x x coordinate
+  *
+  * @param x x coordinate
  * @param y y coordinate
  * @param z z coordinate
  * @param w w coordinate
@@ -669,19 +679,22 @@ class Quaternion(var x: Double = js.native, var y: Double = js.native, var z: Do
   override def clone(): Quaternion = js.native
   /**
    * Returns the numerical elements of this quaternion in an array of format (x, y, z, w).
-   * @param array Array to store the quaternion.
+    *
+    * @param array Array to store the quaternion.
    */
   def toArray(array:js.Array[Double] = js.native): js.Array[Double] = js.native
   /**
    * Compares each component of v to each component of this quaternion to determine if they represent the same rotation.
-   * @param v Quaternion that this quaternion will be compared to.
+    *
+    * @param v Quaternion that this quaternion will be compared to.
    */
   def equals(v: Quaternion): Boolean = js.native
   /** Calculates the squared length of the quaternion.*/
   def lengthSq(): Double = js.native
   /**
    * Sets this quaternion's component values from an array.
-   * @param array Array of format (x, y, z, w) used to construct the quaternion.
+    *
+    * @param array Array of format (x, y, z, w) used to construct the quaternion.
    */
   def fromArray(array: js.Array[Double]): this.type = js.native
   /**
@@ -695,7 +708,8 @@ class Quaternion(var x: Double = js.native, var y: Double = js.native, var z: Do
    * t represents the amount of rotation between this quaternion (where t is 0)
    * and quaternionB (where t is 1). This quaternion is set to the result.
    * Also see the static version of the slerp [[Quaternion.slerp()]].
-   * @param quaternionB The other quaternion rotation
+    *
+    * @param quaternionB The other quaternion rotation
    * @param t Normalized 0 to 1 interpolation factor
    */
   def slerp(quaternionB: Quaternion, t: Double): this.type = js.native
@@ -715,6 +729,7 @@ object Quaternion extends js.Object {
 
 /**
   * A ray that emits from an origin in a certain direction.
+  *
   * @constructor Initialises the origin and direction properties to the provided values.
   * @param origin The origin of the Ray.
   * @param direction The direction of the Ray. This must be normalized (with [[Vector3.normalize]]) for the methods to operate properly.
@@ -725,11 +740,13 @@ object Quaternion extends js.Object {
 class Ray(var origin: Vector3 = js.native, var direction: Vector3 = js.native) extends js.Object {
   /**
     * Transform this Ray by the Matrix4.
+    *
     * @param matrix4 matrix4 -- Matrix4 The Matrix4 to transform this Ray by.
     */
   def applyMatrix4(matrix4: Matrix4): this.type = js.native
   /**
     * Get a Vector3 that is a given distance along this Ray.
+    *
     * @param t The distance along the Ray to retrieve a position for.
     * @param optionalTarget Receives the position along the Ray if passed; otherwise a new Vector3 is created.
     */
@@ -739,17 +756,20 @@ class Ray(var origin: Vector3 = js.native, var direction: Vector3 = js.native) e
 
   /**
     * Get the point along this Ray that is closest to the Vector3 provided.
+    *
     * @param point The point to get the closest approach to.
     * @param optionalTarget Receives the return value if passed; otherwise a new Vector3 is created.
     */
   def closestPointToPoint(point: Vector3, optionalTarget: Vector3 = js.native): Vector3 = js.native
   /**
     * Copy the properties of the provided Ray, then return this Ray.
+    *
     * @param ray Ray The Ray to copy values from.
     */
   def copy(ray: Ray): this.type = js.native
   /**
     * Get the squared distance between this Ray and a line segment.
+    *
     * @param v0 The start of the line segment.
     * @param v1 The end of the line segment.
     * @param optionalPointOnRay If this is provided, it receives the point on this Ray that is closest to the segment.
@@ -758,38 +778,45 @@ class Ray(var origin: Vector3 = js.native, var direction: Vector3 = js.native) e
   def distanceSqToSegment(v0: Vector3, v1: Vector3, optionalPointOnRay: Vector3 = js.native, optionalPointOnSegment: Vector3 = js.native): Double = js.native
   /**
     * Get the distance from the origin to the Plane, or null if the Ray doesn't intersect the Plane.
+    *
     * @param plane Plane The Plane to get the distance to.
     */
   def distanceToPlane(plane: Plane): Double = js.native
   /**
     * Get the distance of the closest approach between the Ray and the Vector3.
+    *
     * @param point The Vector3 to compute a distance to.
     */
   def distanceToPoint(point: Vector3): Double = js.native
   /**
     * Get the squared distance of the closest approach between the Ray and the Vector3.
+    *
     * @param point The Vector3 to compute a distance to.
     */
   def distanceSqToPoint(point: Vector3): Double = js.native
   /**
     * Return whether this and the other Ray have equal offsets and directions.
+    *
     * @param ray Ray The Ray to compare to.
     */
   def equals(ray: Ray): Boolean = js.native
   /**
     * Intersect this Ray with a Box3, returning the intersection point or null if there is no intersection.
+    *
     * @param box The Box3 to intersect with.
     * @param optionalTarget The Vector3 to store the result in, or null to create a new Vector3.
     */
   def intersectBox(box: Box3, optionalTarget: Vector3 = js.native): Vector3 = js.native
   /**
     * Intersect this Ray with a Plane, returning the intersection point or null if there is no intersection.
+    *
     * @param plane The Plane to intersect with.
     * @param optionalTarget The Vector3 to store the result in, or null to create a new Vector3.
     */
   def intersectPlane(plane: Plane, optionalTarget: Vector3 = js.native): Vector3 = js.native
   /**
     * Intersect this Ray with a triangle, returning the intersection point or null if there is no intersection.
+    *
     * @param a The Vector3 points on the triangle.
     * @param b The Vector3 points on the triangle.
     * @param c The Vector3 points on the triangle.
@@ -799,32 +826,38 @@ class Ray(var origin: Vector3 = js.native, var direction: Vector3 = js.native) e
   def intersectTriangle(a: Vector3, b: Vector3, c: Vector3, backfaceCulling: Boolean, optionalTarget: Vector3 = js.native): Vector3 = js.native
   /**
     * Return whether or not this Ray intersects with the Box3.
+    *
     * @param box The Box3 to intersect with.
     */
   def intersectsBox(box: Box3): Boolean = js.native
   /**
     * Return whether or not this Ray intersects with the Plane.
+    *
     * @param plane The Plane to intersect with.
     */
   def intersectsPlane(plane: Plane): Boolean = js.native
   /**
     * Return whether or not this Ray intersects with the Sphere.
+    *
     * @param sphere The Sphere to intersect with.
     */
   def intersectsSphere(sphere: Sphere): Boolean = js.native
   /**
     * Shift the origin of this Ray along its direction by the distance given.
+    *
     * @param t The distance along the Ray to interpolate.
     */
   def recast(t: Double): Ray = js.native
   /**
     * Copy the parameters to the origin and direction properties.
+    *
     * @param origin The origin of the Ray.
     * @param direction The direction of the Ray. This must be normalized (with Vector3.normalize) for the methods to operate properly.
     */
   def set(origin: Vector3, direction: Vector3): this.type = js.native
   /**
     * Adjusts the direction of the ray to point at the vector in world coordinates.
+    *
     * @param v The vector to look at.
     */
   def lookAt(v: Vector3): this.type = js.native
@@ -832,6 +865,7 @@ class Ray(var origin: Vector3 = js.native, var direction: Vector3 = js.native) e
 
 /**
   * A geometric sphere defined by a center position and radius.
+  *
   * @see [[http://threejs.org/docs/#Reference/Math/Sphere]]
   */
 @js.native
@@ -843,6 +877,7 @@ class Sphere(var center: Vector3 = js.native, var radius: Double = js.native) ex
   def applyMatrix4(matrix: Matrix4): this.type = js.native
   /**
     * Clamps a point within the sphere. If the point is is outside the sphere, it will clamp it to the closets point on the edge of the sphere.
+    *
     * @param point The point to clamp
     * @param optionalTarget The optional target point to return
     */
@@ -855,6 +890,7 @@ class Sphere(var center: Vector3 = js.native, var radius: Double = js.native) ex
   def equals(sphere: Sphere): Boolean = js.native
   /**
     * Computes the minimum bounding sphere for points. If optionalCenter is given, it is used as the sphere's center. Otherwise, the center of the axis-aligned bounding box encompassing points is calculated.
+    *
     * @param points Array of Vector3 positions.
     * @param optionalCenter Optional Vector3 position for the sphere's center.
     */
@@ -875,6 +911,7 @@ class Sphere(var center: Vector3 = js.native, var radius: Double = js.native) ex
 
 /**
   * Represents a spline.
+  *
   * @constructor Initialises the spline with points, which are the places through which the spline will go.
   * @see [[http://threejs.org/docs/#Reference/Math/Spline]]
   */
@@ -884,12 +921,14 @@ class Spline(var points: js.Array[SplineControlPoint]) extends js.Object {
   /**
     * Initialises using the data in the array as a series of points. Each value in a must be another array with three values,
     * where a[n] is v, the value for the nth point, and v[0], v[1] and v[2] are the x, y and z coordinates of that point n, respectively.
+    *
     * @param a array of triplets containing x, y, z coordinates
     */
   def initFromArray(a: js.Array[js.Array[Double]]): Unit = js.native
 
   /**
     * Return the interpolated point at k.
+    *
     * @param k index
     */
   def getPoint(k: Double): SplineControlPoint = js.native
@@ -898,6 +937,7 @@ class Spline(var points: js.Array[SplineControlPoint]) extends js.Object {
   /**
     * Returns an object with the two properties. The property .total contains the length of the spline when using nSubDivisions.
     * The property .chunkLength contains an array with the total length from the beginning of the spline to the end of that chunk.
+    *
     * @param nSubDivisions number of subdivisions between control points. Default is 100.
     */
   def getLength(nSubDivisions: Double = js.native): SplineLength = js.native
@@ -908,6 +948,7 @@ class Spline(var points: js.Array[SplineControlPoint]) extends js.Object {
     *
     * This is done by resampling the original spline, with the density of sampling controlled by samplingCoef.
     * Here it's interesting to note that denser sampling is not necessarily better: if sampling is too high, you may get weird kinks in curvature.
+    *
     * @param samplingCoef how many intermediate values to use between spline points
     */
   def reparametrizeByArcLength(samplingCoef: Double): Unit = js.native
@@ -924,6 +965,7 @@ trait SplineLength extends js.Any {
 
 /**
   * A geometric triangle as defined by three vectors.
+  *
   * @constructor Sets the triangle's vectors to the passed vectors.
   * @param a The first Vector3 of the triangle.
   * @param b The second Vector3 of the triangle.
@@ -935,6 +977,7 @@ trait SplineLength extends js.Any {
 class Triangle(var a: Vector3 = js.native, var b: Vector3 = js.native, var c: Vector3 = js.native) extends js.Object {
   /**
     * Sets the triangle's vectors to the vectors in the array.
+    *
     * @param points Array of Vector3s
     * @param i0 index
     * @param i1 index
@@ -945,6 +988,7 @@ class Triangle(var a: Vector3 = js.native, var b: Vector3 = js.native, var c: Ve
   def set(a: Vector3, b: Vector3, c: Vector3): this.type = js.native
   /**
     * Return the calculated normal of the triangle.
+    *
     * @param optionalTarget Optional Vector3 target to set the result.
     */
   def normal(optionalTarget: Vector3 = js.native): Vector3 = js.native
@@ -952,6 +996,7 @@ class Triangle(var a: Vector3 = js.native, var b: Vector3 = js.native, var c: Ve
     * Return a barycentric coordinate from the given vector.
     *
     * [[http://commons.wikimedia.org/wiki/File:Barycentric_coordinates_1.png Picture of barycentric coordinates]]
+    *
     * @param optionalTarget Optional Vector3 target to set the result.
     */
   def barycoordFromPoint(point: Vector3, optionalTarget: Vector3 = js.native): Vector3 = js.native
@@ -960,6 +1005,7 @@ class Triangle(var a: Vector3 = js.native, var b: Vector3 = js.native, var c: Ve
   def area(): Double = js.native
   /**
     * Return the midpoint of the triangle. Optionally sets a target vector.
+    *
     * @param optionalTarget Optional Vector3 target to set the result.
     */
   def midpoint(optionalTarget: Vector3 = js.native): Vector3 = js.native
@@ -967,6 +1013,7 @@ class Triangle(var a: Vector3 = js.native, var b: Vector3 = js.native, var c: Ve
   def equals(triangle: Triangle): Boolean = js.native
   /**
     * Return a plane based on the triangle. Optionally sets a target plane.
+    *
     * @param optionalTarget Optional Plane target to set the result.
     */
   def plane(optionalTarget: Plane = js.native): Plane = js.native
@@ -976,81 +1023,171 @@ class Triangle(var a: Vector3 = js.native, var b: Vector3 = js.native, var c: Ve
   override def clone(): Triangle = js.native
 }
 
-@js.native
-@JSName("THREE.Triangle")
-object Triangle extends js.Object {
-  def normal(a: Vector3, b: Vector3, c: Vector3, optionalTarget: Vector3 = js.native): Vector3 = js.native
-  def barycoordFromPoint(point: Vector3, a: Vector3, b: Vector3, c: Vector3, optionalTarget: Vector3): Vector3 = js.native
-  def containsPoint(point: Vector3, a: Vector3, b: Vector3, c: Vector3): Boolean = js.native
-}
 
 @js.native
 sealed trait Vector[VT <: Vector[VT]] extends js.Object {
-  def setComponent(index: Double, value: Double): Unit = js.native
-  def getComponent(index: Double): Double = js.native
-  def copy(v: VT): VT = js.native
-  def add(v: VT): VT = js.native
-  def addVectors(a: VT, b: VT): VT = js.native
-  def sub(v: VT): VT = js.native
-  def subVectors(a: VT, b: VT): VT = js.native
-  def multiplyScalar(s: Double): VT = js.native
-  def divideScalar(s: Double): VT = js.native
-  def negate(): VT = js.native
+  /** Copies value of v to this vector. */
+  def copy(v: VT): this.type = js.native
+  /** Adds v to this vector. */
+  def add(v: VT): this.type = js.native
+  /** Sets this vector to a + b. */
+  def addVectors(a: VT, b: VT): this.type = js.native
+  /** Adds the multiple of v and s to this vector. */
+  def addScaledVector(v: VT, s: Double): this.type = js.native
+  /** Subtracts v from this vector. */
+  def sub(v: VT): this.type = js.native
+  /** Sets this vector to a - b. */
+  def subVectors(a: VT, b: VT): this.type = js.native
+  /** Multiplies this vector by scalar s. */
+  def multiplyScalar(s: Double): this.type = js.native
+  /**
+    * Divides this vector by scalar s.
+    * Set vector to ( 0, 0, 0 ) if s == 0.
+    */
+  def divideScalar(s: Double): this.type = js.native
+  /** Inverts this vector. */
+  def negate(): this.type = js.native
+  /** Computes dot product of this vector and v. */
   def dot(v: VT): Double = js.native
+  /** Computes squared length of this vector. */
   def lengthSq(): Double = js.native
+  /** Computes length of this vector. */
   def length(): Double = js.native
-  def normalize(): VT = js.native
+
+  /** Computes Manhattan length of this vector.
+    *
+    * @see [[http://en.wikipedia.org/wiki/Taxicab_geometry]]*/
+  def lengthManhattan(): Double = js.native
+  /** Normalizes this vector. */
+  def normalize(): this.type = js.native
+  /** Computes distance of this vector to v. */
   def distanceTo(v: VT): Double = js.native
+  /** Computes squared distance of this vector to v. */
   def distanceToSquared(v: VT): Double = js.native
-  def setLength(l: Double): VT = js.native
-  def lerp(v: VT, alpha: Double): VT = js.native
+  /** Normalizes this vector and multiplies it by l. */
+  def setLength(l: Double): this.type = js.native
+  /** Checks for strict equality of this vector and v. */
   def equals(v: VT): Boolean = js.native
+
+  /**
+    * If this vector's x or y value is greater than the max vector's x or y value, it is replaced by the corresponding value.
+    *
+    * If this vector's x or y value is less than the min vector's x or y value, it is replaced by the corresponding value.
+    *
+    * @param min Vector containing the min values in the desired range
+    * @param max Vector containing the max x and y values in the desired range
+    */
+  def clamp(min: VT, max: VT): this.type = js.native
+  /**
+    * If this vector's x or y values are greater than the max value, they are replaced by the max value.
+    *
+    * If this vector's x or y values are less than the min value, they are replaced by the min value.
+    *
+    * @param min the minimum value the components will be clamped to
+    * @param max the maximum value the components will be clamped to
+    */
+  def clampScalar(min: Double, max: Double): this.type = js.native
+  /** The components of the vector are rounded downwards (towards negative infinity) to an integer value. */
+  def floor(): Unit = js.native
+  /** The components of the vector are rounded upwards (towards positive infinity) to an integer value. */
+  def ceil(): Unit = js.native
+  /** The components of the vector are rounded towards the nearest integer value. */
+  def round(): Unit = js.native
+  /** The components of the vector are rounded towards zero (up if negative, down if positive) to an integer value. */
+  def roundToZero(): Unit = js.native
+
+  /**
+    * Linear interpolation between this vector and v, where alpha is the percent along the line.
+    *
+    * @param alpha Float between 0 and 1
+    */
+  def lerp(v: VT, alpha: Double): this.type = js.native
+
+  /**
+    * Sets this vector to be the vector linearly interpolated between v1 and v2 with alpha factor.
+    *
+    * @param alpha Float between 0 and 1.
+    */
+  def lerpVectors(v1: VT, v2: VT, alpha: Double): this.type = js.native
+
+  def setComponent(index: Double, value: Double): Unit = js.native
+
+  def getComponent(index: Double): Double = js.native
+  def fromArray(array: js.Array[Double]) : this.type = js.native
+
+  /**
+    * Returns an array [x, y, ...].
+    *
+    * @param array Optional array to store the vector.
+    */
+  def toArray(array: js.Array[Double] = js.native): js.Array[Double]
+
+  /**
+    * If this vector's nth value is greater than vector v's nth value, that value is replaced by the corresponding vector v value.
+    */
+  def min(v: VT): this.type = js.native
+
+  /** If this vector's nth value is less than vector v's nth value, that value is replaced by the corresponding vector v value. */
+  def max(v: VT): this.type = js.native
+
+  /** Adds a s to this vector. */
+  def addScalar(s: Double) : this.type = js.native
+
+
+
   override def clone(): VT = js.native
 }
 
+/**
+  * 2D vector.
+  * @see [[http://threejs.org/docs/#Reference/Math/Vector2]]
+  */
 @js.native
 @JSName("THREE.Vector2")
 class Vector2 extends Vector[Vector2] {
   def this(x: Double = js.native, y: Double = js.native) = this()
   var x: Double = js.native
   var y: Double = js.native
-  /** Sets value of this vector. */
-  def set(x: Double, y: Double): this.type = js.native
-  def setX(x: Double): this.type  = js.native
-  def setY(y: Double): this.type  = js.native
   override def setComponent(index: Double, value: Double): Unit = js.native
   override def getComponent(index: Double): Double = js.native
   override def copy(v: Vector2): this.type  = js.native
   override def add(v: Vector2): this.type  = js.native
   override def addVectors(a: Vector2, b: Vector2): this.type  = js.native
-  def addScalar(s: Double): Vector2 = js.native
+  override def addScalar(s: Double): Vector2 = js.native
   override def sub(v: Vector2): this.type = js.native
   override def subVectors(a: Vector2, b: Vector2): this.type  = js.native
-  def multiply(v: Vector2): Vector2 = js.native
   override def multiplyScalar(s: Double): Vector2 = js.native
-  def divide(v: Vector2): Vector2 = js.native
   override def divideScalar(s: Double): Vector2 = js.native
-  def min(v: Vector2): Vector2 = js.native
-  def max(v: Vector2): Vector2 = js.native
-  def clamp(min: Vector2, max: Vector2): Vector2 = js.native
-  def clampScalar(min: Double, max: Double): Vector2 = js.native
-  def floor(): this.type = js.native
-  def ceil(): this.type = js.native
-  def round(): this.type = js.native
-  def roundToZero(): this.type = js.native
+  override def min(v: Vector2): Vector2 = js.native
+  override def max(v: Vector2): Vector2 = js.native
+  override def clamp(min: Vector2, max: Vector2): Vector2 = js.native
+  override def clampScalar(min: Double, max: Double): Vector2 = js.native
+  override def floor(): this.type = js.native
+  override def ceil(): this.type = js.native
+  override def round(): this.type = js.native
+  override def roundToZero(): this.type = js.native
   override def negate(): this.type = js.native
   override def dot(v: Vector2): Double = js.native
   override def lengthSq(): Double = js.native
   override def length(): Double = js.native
+  override def lengthManhattan(): Double = js.native
   override def normalize(): this.type = js.native
   override def distanceTo(v: Vector2): Double = js.native
   override def distanceToSquared(v: Vector2): Double = js.native
   override def setLength(l: Double): this.type = js.native
-  override def lerp(v: Vector2, alpha: Double): Vector2 = js.native
+  override def lerp(v: Vector2, alpha: Double): this.type = js.native
   override def equals(v: Vector2): Boolean = js.native
-  def fromArray(xy: js.Array[Double]): Vector2 = js.native
-  def toArray(): js.Array[Double] = js.native
+  override def fromArray(xy: js.Array[Double]): Vector2 = js.native
+  override def toArray(array: js.Array[Double] = js.native): js.Array[Double] = js.native
   override def clone(): Vector2 = js.native
+  /** Sets value of this vector. */
+  def set(x: Double, y: Double): this.type = js.native
+  /** replace this vector's x value with x. */
+  def setX(x: Double): this.type  = js.native
+  /** replace this vector's y value with x. */
+  def setY(y: Double): this.type  = js.native
+  /** Computes the angle in radians of this vector with respect to the positive x-axis. */
+  def angle(): Double = js.native
 }
 
 /**
@@ -1070,6 +1207,37 @@ class Vector3 extends Vector[Vector3] {
   var x: Double = js.native
   var y: Double = js.native
   var z: Double = js.native
+  override def setComponent(index: Double, value: Double): Unit = js.native
+  override def getComponent(index: Double): Double = js.native
+  override def copy(v: Vector3): this.type = js.native
+  override def add(a: Vector3): this.type = js.native
+  override def addScalar(s: Double): this.type = js.native
+  override def addVectors(a: Vector3, b: Vector3): this.type = js.native
+  override def sub(a: Vector3): this.type = js.native
+  override def subVectors(a: Vector3, b: Vector3): this.type = js.native
+  override def multiplyScalar(s: Double): this.type = js.native
+  override def divideScalar(s: Double): this.type = js.native
+  override def min(v: Vector3): this.type = js.native
+  override def max(v: Vector3): this.type = js.native
+  override def clamp(min: Vector3, max: Vector3): this.type = js.native
+  override def clampScalar(min: Double, max: Double): this.type = js.native
+  override def floor(): this.type = js.native
+  override def ceil(): this.type = js.native
+  override def round(): this.type = js.native
+  override def roundToZero(): this.type = js.native
+  override def negate(): this.type = js.native
+  override def dot(v: Vector3): Double = js.native
+  override def lengthSq(): Double = js.native
+  override def length(): Double = js.native
+  override def lengthManhattan(): Double = js.native
+  override def normalize(): this.type = js.native
+  override def setLength(l: Double): this.type = js.native
+  override def lerp(v: Vector3, alpha: Double): this.type = js.native
+  override def distanceTo(v: Vector3): Double = js.native
+  override def distanceToSquared(v: Vector3): Double = js.native
+  override def equals(v: Vector3): Boolean = js.native
+  override def fromArray(xyz: js.Array[Double]): this.type = js.native
+  override def toArray(array: js.Array[Double]): js.Array[Double] = js.native
   /** Sets value of this vector. */
   def set(x: Double, y: Double, z: Double): this.type = js.native
   /** Sets x value of this vector. */
@@ -1078,64 +1246,76 @@ class Vector3 extends Vector[Vector3] {
   def setY(y: Double): this.type = js.native
   /** Sets z value of this vector. */
   def setZ(z: Double): this.type = js.native
-  override def setComponent(index: Double, value: Double): Unit = js.native
-  override def getComponent(index: Double): Double = js.native
-  override def copy(v: Vector3): this.type = js.native
-  override def add(a: Vector3): this.type = js.native
-  def addScalar(s: Double): this.type = js.native
-  override def addVectors(a: Vector3, b: Vector3): this.type = js.native
-  override def sub(a: Vector3): this.type = js.native
-  override def subVectors(a: Vector3, b: Vector3): this.type = js.native
+  /** Sets this vector to cross product of itself and v. */
+  def cross(a: Vector3): this.type = js.native
+  /** Sets this vector to cross product of a and b. */
+  def crossVectors(a: Vector3, b: Vector3): this.type = js.native
+  /**
+    * Projects the vector with the camera.
+    * @param camera camera to use in the projection.
+    */
+  def project(camera: Camera): Unit = js.native
+  /**
+    * Unprojects the vector with the camera.
+    * @param camera camera to use in the projection.
+    */
+  def unproject(camera: Camera): Unit = js.native
+  /** Projects this vector onto another vector. */
+  def projectOnVector(v: Vector3): this.type = js.native
+  /**
+    * Projects this vector onto a plane by subtracting this vector projected onto the plane's normal from this vector.
+    * @param planeNormal A vector representing a plane normal.
+    */
+  def projectOnPlane(planeNormal: Vector3): this.type = js.native
+  /**
+    * Reflect incident vector off of plane orthogonal to normal. normal is assumed to have unit length.
+    * @param vector Vector3 the normal to the reflecting plane
+    */
+  def reflect(vector: Vector3): this.type = js.native
+  /** Multipies this vector by vector v. */
   def multiply(v: Vector3): this.type = js.native
-  override def multiplyScalar(s: Double): this.type = js.native
-  def multiplyVectors(a: Vector3, b: Vector3): this.type = js.native
-  def applyEuler(euler: Euler): this.type = js.native
-  def applyAxisAngle(axis: Vector3, angle: Double): this.type = js.native
-  def applyMatrix3(m: Matrix3): this.type = js.native
-  def applyMatrix4(m: Matrix4): this.type = js.native
+  /**
+    * Multiplies this vector and m, and divides by perspective.
+    * @param m Matrix4 projection matrix.
+    */
   def applyProjection(m: Matrix4): this.type = js.native
+  /** Applies euler transform to this vector by converting the Euler obect to a Quaternion and applying. */
+  def applyEuler(euler: Euler): this.type = js.native
+  /** Applies a Quaternion transform to this vector. */
   def applyQuaternion(q: Quaternion): this.type = js.native
+  /** Sets this vector equal to the result of multiplying vector a by vector b. */
+  def multiplyVectors(a: Vector3, b: Vector3): this.type = js.native
+  /**
+    * Applies a rotation specified by an axis and an angle to this vector.
+    * @param axis A normalized Vector3
+    * @param angle An angle in radians
+    */
+  def applyAxisAngle(axis: Vector3, angle: Double): this.type = js.native
+  /** Multiplies this vector times a 3 x 3 matrix. */
+  def applyMatrix3(m: Matrix3): this.type = js.native
+  /** Multiplies this vector by 4 x 3 subset of a Matrix4. */
+  def applyMatrix4(m: Matrix4): this.type = js.native
   def transformDirection(m: Matrix4): this.type = js.native
   def divide(v: Vector3): this.type = js.native
-  override def divideScalar(s: Double): this.type = js.native
-  /** If this vector's x, y, or z value is greater than vector v's x, y, or z value, that value is replaced by the corresponding vector v value. */
-  def min(v: Vector3): this.type = js.native
-  /** If this vector's x, y, or z value is less than vector v's x, y, or z value, that value is replaced by the corresponding vector v value. */
-  def max(v: Vector3): this.type = js.native
-  def clamp(min: Vector3, max: Vector3): Vector3 = js.native
-  def clampScalar(min: Double, max: Double): Vector3 = js.native
-  def floor(): Vector3 = js.native
-  def ceil(): Vector3 = js.native
-  def round(): Vector3 = js.native
-  def roundToZero(): Vector3 = js.native
-  override def negate(): this.type = js.native
-  override def dot(v: Vector3): Double = js.native
-  override def lengthSq(): Double = js.native
-  override def length(): Double = js.native
-  def lengthManhattan(): Double = js.native
-  override def normalize(): Vector3 = js.native
-  override def setLength(l: Double): Vector3 = js.native
-  override def lerp(v: Vector3, alpha: Double): Vector3 = js.native
-  def cross(a: Vector3): Vector3 = js.native
-  def crossVectors(a: Vector3, b: Vector3): Vector3 = js.native
-  def project(camera: Camera): Vector3 = js.native
-  def unproject(camera: Camera): Vector3 = js.native
-  def projectOnVector(v: Vector3): Vector3 = js.native
-  def projectOnPlane(planeNormal: Vector3): Vector3 = js.native
-  def reflect(vector: Vector3): Vector3 = js.native
+  /** Returns the angle between this vector and vector v in radians. */
   def angleTo(v: Vector3): Double = js.native
-  /** Computes distance of this vector to v. */
-  override def distanceTo(v: Vector3): Double = js.native
-  override def distanceToSquared(v: Vector3): Double = js.native
-  def setFromMatrixPosition(m: Matrix4): Vector3 = js.native
-  def setFromMatrixScale(m: Matrix4): Vector3 = js.native
-  def setFromMatrixColumn(index: Double, matrix: Matrix4): Vector3 = js.native
-  override def equals(v: Vector3): Boolean = js.native
-  def fromArray(xyz: js.Array[Double]): Vector3 = js.native
-  def toArray(): js.Array[Double] = js.native
+  /** Sets this vector extracting position from matrix transform. */
+  def setFromMatrixPosition(m: Matrix4): this.type = js.native
+  /** Sets this vector extracting scale from matrix transform. */
+  def setFromMatrixScale(m: Matrix4): this.type = js.native
+  /**
+    * Sets this vector's x, y, and z equal to the column of the matrix specified by the index.
+    * @param index 0, 1, 2, or 3
+    */
+  def setFromMatrixColumn(index: Double, matrix: Matrix4): this.type = js.native
+
   override def clone(): Vector3 = js.native
 }
 
+/**
+  * 4D vector.
+  * @see [[http://threejs.org/docs/#Reference/Math/Vector4]]
+  */
 @js.native
 @JSName("THREE.Vector4")
 class Vector4 extends Vector[Vector4] {
@@ -1144,42 +1324,58 @@ class Vector4 extends Vector[Vector4] {
   var y: Double = js.native
   var z: Double = js.native
   var w: Double = js.native
+  /** Sets value of this vector. */
   def set(x: Double, y: Double, z: Double, w: Double): Vector4 = js.native
+  /** Sets x value of this vector. */
   def setX(x: Double): Vector4 = js.native
+  /** Sets y value of this vector. */
   def setY(y: Double): Vector4 = js.native
+  /** Sets z value of this vector. */
   def setZ(z: Double): Vector4 = js.native
+  /** Sets w value of this vector. */
   def setW(w: Double): Vector4 = js.native
   override def setComponent(index: Double, value: Double): Unit = js.native
   override def getComponent(index: Double): Double = js.native
   override def copy(v: Vector4): Vector4 = js.native
   override def add(v: Vector4): Vector4 = js.native
-  def addScalar(s: Double): Vector4 = js.native
+  override def addScalar(s: Double): Vector4 = js.native
   override def addVectors(a: Vector4, b: Vector4): this.type = js.native
   override def sub(v: Vector4): this.type = js.native
   override def subVectors(a: Vector4, b: Vector4): this.type = js.native
   override def multiplyScalar(s: Double): this.type = js.native
-  def applyMatrix4(m: Matrix4): this.type = js.native
   override def divideScalar(s: Double): this.type = js.native
-  def setAxisAngleFromQuaternion(q: Quaternion): this.type = js.native
-  def setAxisAngleFromRotationMatrix(m: Matrix3): this.type = js.native
-  def min(v: Vector4): this.type = js.native
-  def max(v: Vector4): this.type = js.native
-  def clamp(min: Vector4, max: Vector4): this.type = js.native
-  def clampScalar(min: Double, max: Double): this.type = js.native
-  def floor(): this.type = js.native
-  def ceil(): this.type = js.native
-  def round(): this.type = js.native
-  def roundToZero(): this.type = js.native
+  override def min(v: Vector4): this.type = js.native
+  override def max(v: Vector4): this.type = js.native
+  override def clamp(min: Vector4, max: Vector4): this.type = js.native
+  override def clampScalar(min: Double, max: Double): this.type = js.native
+  override def floor(): this.type = js.native
+  override def ceil(): this.type = js.native
+  override def round(): this.type = js.native
+  override def roundToZero(): this.type = js.native
   override def negate(): this.type = js.native
   override def dot(v: Vector4): Double = js.native
   override def lengthSq(): Double = js.native
   override def length(): Double = js.native
-  def lengthManhattan(): Double = js.native
+  override def lengthManhattan(): Double = js.native
   override def normalize(): this.type = js.native
   override def setLength(l: Double): this.type = js.native
   override def lerp(v: Vector4, alpha: Double): this.type = js.native
   override def equals(v: Vector4): Boolean = js.native
-  def fromArray(xyzw: js.Array[Double]): js.Array[Double] = js.native
-  def toArray(): js.Array[Double] = js.native
+  override def fromArray(xyzw: js.Array[Double]): js.Array[Double] = js.native
+  override def toArray(array: js.Array[Double] = js.native): js.Array[Double] = js.native
   override def clone(): Vector4 = js.native
+  /** Transforms the vector by the matrix. */
+  def applyMatrix4(m: Matrix4): this.type = js.native
+  /**
+    * Sets this Vector4 to the computed axis-angle representation of the rotation defined by Quaternion q.
+    * The axis is stored in components (x, y, z) of the vector, and the rotation in radians is stored in component w
+    */
+  def setAxisAngleFromQuaternion(q: Quaternion): this.type = js.native
+  /**
+    * Sets this Vector4 to the computed axis-angle representation of the rotation defined by Matrix4 m. Assumes the upper
+    * 3x3 of m is a pure rotation matrix (i.e, unscaled).
+    *
+    * The axis is stored in components (x, y, z) of the vector, and the rotation in radians is stored in component w
+    */
+  def setAxisAngleFromRotationMatrix(m: Matrix3): this.type = js.native
 }

@@ -1,7 +1,5 @@
 package org.denigma.threejs.extensions.animations
 
-import java.util.Date
-
 import org.scalajs.dom
 import Animation.{Started, AniState}
 import scala.concurrent.duration.Duration
@@ -37,7 +35,7 @@ class Scheduler
   }
 
   def start() =    {
-    dom.requestAnimationFrame(  onEnterFrameFunction _ )
+    dom.window.requestAnimationFrame(  onEnterFrameFunction _ )
     this
   }
 

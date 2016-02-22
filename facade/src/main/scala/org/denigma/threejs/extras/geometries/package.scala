@@ -377,5 +377,5 @@ object TubeGeometry {
     */
   @js.native
   @JSName("THREE.TubeGeometry.FrenetFrames")
-  class FrenetFrames(path: Path, segments: Double, closed: Boolean)
+  class FrenetFrames(path: Path, segments: Double, closed: Boolean) extends js.Any
 }
