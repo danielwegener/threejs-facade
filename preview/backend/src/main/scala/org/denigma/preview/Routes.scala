@@ -18,20 +18,20 @@ trait Routes extends  PJax{
 
   def index =  pathSingleSlash{ctx=>
     ctx.complete {
-      HttpResponse(  entity = HttpEntity(MediaTypes.`text/html`, html.index(None).body  ))
+      HttpResponse(  entity = HttpEntity(ContentTypes.`text/html(UTF-8)`, html.index(None).body))
     }
   }
 
   def mystyles =    path("styles" / "mystyles.css"){
     complete  {
-      HttpResponse(  entity = HttpEntity(MediaTypes.`text/css`,  MyStyles.render   ))   }
+      HttpResponse(  entity = HttpEntity(ContentTypes.`text/html(UTF-8)`,  MyStyles.render   ))   }
   }
 
-  def loadResources = pathPrefix(resourcePrefix~Slash) {
+  def loadResources = pathPrefix(resourcePrefix ~ Slash) {
     getFromResourceDirectory("")
   }
 
-  def webjars =pathPrefix(webjarsPrefix ~ Slash)  {  getFromResourceDirectory(webjarsPrefix)  }
+  def webjars = pathPrefix(webjarsPrefix ~ Slash)  {  getFromResourceDirectory(webjarsPrefix)  }
 
 
   /**
@@ -39,7 +39,7 @@ trait Routes extends  PJax{
    */
   def loadPage(content:Html)(implicit req:HttpRequest): HttpResponse = {
     val cont = if(isPjax(req))  content.body else html.index(  Some(content ) ).body
-    HttpResponse(  entity = HttpEntity(MediaTypes.`text/html`, cont))
+    HttpResponse(  entity = HttpEntity(ContentTypes.`text/html(UTF-8)`, cont))
   }
 
   def routes = index ~  webjars ~ mystyles ~ loadResources

@@ -12,16 +12,16 @@ import play.twirl.sbt.SbtTwirl.autoImport._
 import com.typesafe.sbt.web.SbtWeb.autoImport._
 
 
-object Build extends FacadeBuild {
+object Build extends PreviewBuild {
 
 	lazy val root = Project("root",file("."),settings = commonSettings)
 		.settings(
-			//mainClass in Compile := (mainClass in backend in Compile).value,
-			//libraryDependencies += "com.lihaoyi" % "ammonite-repl" % Versions.ammonite cross CrossVersion.full,
-			//initialCommands in console := """ammonite.repl.Repl.run("")""" //better console
-		) aggregate(facade)
+			mainClass in Compile := (mainClass in backend in Compile).value,
+			libraryDependencies += "com.lihaoyi" % "ammonite-repl" % Versions.ammonite cross CrossVersion.full,
+			initialCommands in console := """ammonite.repl.Repl.run("")""" //better console
+		) dependsOn backend aggregate(backend,frontend)
 }
-/*
+
 class PreviewBuild extends FacadeBuild
 {
 	// code shared between backend and frontend
@@ -57,7 +57,7 @@ class PreviewBuild extends FacadeBuild
 		).enablePlugins(SbtTwirl,SbtWeb) dependsOn sharedJVM
 
 }
-*/
+
 class FacadeBuild  extends sbt.Build{
 	self=>
 
@@ -96,7 +96,7 @@ class FacadeBuild  extends sbt.Build{
 		.settings(commonSettings++publishSettings: _*)
 		.settings(
 			name := "threejs-facade",
-			//version := Versions.threejsFacade,
+			version := Versions.threejsFacade,
 			libraryDependencies ++= Dependencies.facadeDependencies.value
 		) enablePlugins ScalaJSPlugin
 

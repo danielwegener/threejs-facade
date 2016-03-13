@@ -2,6 +2,7 @@ package org.denigma.threejs.loaders
 
 import org.denigma.threejs._
 import org.denigma.threejs.core.{Object3D, BufferGeometry, Geometry}
+import org.denigma.threejs.extras.animation.AnimationData
 import org.denigma.threejs.materials.Material
 import org.denigma.threejs.textures.{CompressedTexture, Texture}
 import org.scalajs.dom.ProgressEvent

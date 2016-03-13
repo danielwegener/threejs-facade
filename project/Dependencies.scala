@@ -12,9 +12,9 @@ object Dependencies {
 	//akka-related libs
 	lazy val akka = Def.setting(Seq(
 
-		"com.typesafe.akka" %% "akka-stream-experimental" % Versions.akkaHttp,
+		"com.typesafe.akka" %% "akka-stream" % Versions.akkaHttp,
 
-		"com.typesafe.akka" %% "akka-http-core-experimental" % Versions.akkaHttp,
+		"com.typesafe.akka" %% "akka-http-core" % Versions.akkaHttp,
 
 		"com.typesafe.akka" %% "akka-http-experimental" % Versions.akkaHttp
 	))
@@ -37,11 +37,11 @@ object Dependencies {
 
 		"org.querki" %%% "jquery-facade" % Versions.jqueryFacade, //scalajs facade for jQuery + jQuery extensions
 
-		"org.querki" %%% "querki-jsext" % Versions.jsext //useful sclalajs extensions
+		"org.querki" %%% "querki-jsext" % Versions.jsext, //useful sclalajs extensions
 
-		//"org.denigma" %%% "codemirror-facade" % Versions.codemirrorFacade,
+		"org.denigma" %%% "codemirror-facade" % Versions.codemirrorFacade,
 
-		//"org.denigma" %%% "binding" % Versions.binding
+		"org.denigma" %%% "binding" % Versions.binding
 	))
 
 	//dependencies on javascript libs

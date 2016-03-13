@@ -167,11 +167,6 @@ class CompressedTexture extends Texture {
            wrapT: Wrapping = js.native, magFilter: TextureFilter = js.native, minFilter: TextureFilter = js.native,
            anisotropy: Double = js.native) = this()
 
-  /** False by default. Flipping textures does not work for compressed textures. */
-  override var flipY: Boolean = js.native
-  /** False by default. Mipmaps can't be generated for compressed textures */
-  override var generateMipmaps: Boolean = js.native
-
   override def clone(): CompressedTexture = js.native
 }
 
@@ -219,9 +214,6 @@ class DataTexture extends Texture {
     * OES_texture_half_float_linear must also be present.
     */
   def this(data: ArrayBuffer | ArrayBufferView, width: Double, height: Double, format: PixelFormat, `type`: TextureDataType, mapping: Mapping, wrapS: Wrapping, wrapT: Wrapping, magFilter: TextureFilter, minFilter: TextureFilter, anisotropy: Double = js.native) = this()
-
-  /** Overridden with a record type holding data, width and height. */
-  override var image: js.Any = js.native
 
   override def clone(): DataTexture = js.native
 }

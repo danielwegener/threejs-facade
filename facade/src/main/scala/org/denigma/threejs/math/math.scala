@@ -1153,19 +1153,19 @@ class Vector2 extends Vector[Vector2] {
   override def copy(v: Vector2): this.type  = js.native
   override def add(v: Vector2): this.type  = js.native
   override def addVectors(a: Vector2, b: Vector2): this.type  = js.native
-  override def addScalar(s: Double): Vector2 = js.native
+  override def addScalar(s: Double): this.type = js.native
   override def sub(v: Vector2): this.type = js.native
   override def subVectors(a: Vector2, b: Vector2): this.type  = js.native
-  override def multiplyScalar(s: Double): Vector2 = js.native
-  override def divideScalar(s: Double): Vector2 = js.native
-  override def min(v: Vector2): Vector2 = js.native
-  override def max(v: Vector2): Vector2 = js.native
-  override def clamp(min: Vector2, max: Vector2): Vector2 = js.native
-  override def clampScalar(min: Double, max: Double): Vector2 = js.native
-  override def floor(): this.type = js.native
-  override def ceil(): this.type = js.native
-  override def round(): this.type = js.native
-  override def roundToZero(): this.type = js.native
+  override def multiplyScalar(s: Double): this.type = js.native
+  override def divideScalar(s: Double): this.type = js.native
+  override def min(v: Vector2): this.type = js.native
+  override def max(v: Vector2): this.type = js.native
+  override def clamp(min: Vector2, max: Vector2): this.type = js.native
+  override def clampScalar(min: Double, max: Double): this.type = js.native
+  override def floor(): Unit = js.native
+  override def ceil(): Unit = js.native
+  override def round(): Unit = js.native
+  override def roundToZero(): Unit = js.native
   override def negate(): this.type = js.native
   override def dot(v: Vector2): Double = js.native
   override def lengthSq(): Double = js.native
@@ -1177,7 +1177,7 @@ class Vector2 extends Vector[Vector2] {
   override def setLength(l: Double): this.type = js.native
   override def lerp(v: Vector2, alpha: Double): this.type = js.native
   override def equals(v: Vector2): Boolean = js.native
-  override def fromArray(xy: js.Array[Double]): Vector2 = js.native
+  override def fromArray(xy: js.Array[Double]): this.type = js.native
   override def toArray(array: js.Array[Double] = js.native): js.Array[Double] = js.native
   override def clone(): Vector2 = js.native
   /** Sets value of this vector. */
@@ -1221,10 +1221,10 @@ class Vector3 extends Vector[Vector3] {
   override def max(v: Vector3): this.type = js.native
   override def clamp(min: Vector3, max: Vector3): this.type = js.native
   override def clampScalar(min: Double, max: Double): this.type = js.native
-  override def floor(): this.type = js.native
-  override def ceil(): this.type = js.native
-  override def round(): this.type = js.native
-  override def roundToZero(): this.type = js.native
+  override def floor(): Unit = js.native
+  override def ceil(): Unit = js.native
+  override def round(): Unit = js.native
+  override def roundToZero(): Unit = js.native
   override def negate(): this.type = js.native
   override def dot(v: Vector3): Double = js.native
   override def lengthSq(): Double = js.native
@@ -1336,9 +1336,9 @@ class Vector4 extends Vector[Vector4] {
   def setW(w: Double): Vector4 = js.native
   override def setComponent(index: Double, value: Double): Unit = js.native
   override def getComponent(index: Double): Double = js.native
-  override def copy(v: Vector4): Vector4 = js.native
-  override def add(v: Vector4): Vector4 = js.native
-  override def addScalar(s: Double): Vector4 = js.native
+  override def copy(v: Vector4): this.type = js.native
+  override def add(v: Vector4): this.type = js.native
+  override def addScalar(s: Double): this.type = js.native
   override def addVectors(a: Vector4, b: Vector4): this.type = js.native
   override def sub(v: Vector4): this.type = js.native
   override def subVectors(a: Vector4, b: Vector4): this.type = js.native
@@ -1348,10 +1348,10 @@ class Vector4 extends Vector[Vector4] {
   override def max(v: Vector4): this.type = js.native
   override def clamp(min: Vector4, max: Vector4): this.type = js.native
   override def clampScalar(min: Double, max: Double): this.type = js.native
-  override def floor(): this.type = js.native
-  override def ceil(): this.type = js.native
-  override def round(): this.type = js.native
-  override def roundToZero(): this.type = js.native
+  override def floor(): Unit = js.native
+  override def ceil(): Unit = js.native
+  override def round(): Unit = js.native
+  override def roundToZero(): Unit = js.native
   override def negate(): this.type = js.native
   override def dot(v: Vector4): Double = js.native
   override def lengthSq(): Double = js.native
@@ -1361,7 +1361,7 @@ class Vector4 extends Vector[Vector4] {
   override def setLength(l: Double): this.type = js.native
   override def lerp(v: Vector4, alpha: Double): this.type = js.native
   override def equals(v: Vector4): Boolean = js.native
-  override def fromArray(xyzw: js.Array[Double]): js.Array[Double] = js.native
+  override def fromArray(xyzw: js.Array[Double]): this.type = js.native
   override def toArray(array: js.Array[Double] = js.native): js.Array[Double] = js.native
   override def clone(): Vector4 = js.native
   /** Transforms the vector by the matrix. */

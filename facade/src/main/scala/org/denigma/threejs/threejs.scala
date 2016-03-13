@@ -618,7 +618,7 @@ object LineType extends js.Object {
 
 @js.native
 @JSName("THREE.MorphAnimMesh")
-class MorphAnimMesh extends Mesh {
+class MorphAnimMesh extends Mesh(???, ???) {
   def this(geometry: Geometry = js.native, material: MeshBasicMaterial = js.native) = this()
   var duration: Double = js.native
   var mirroredLoop: Boolean = js.native

@@ -1,13 +1,14 @@
 package org.denigma.preview
 
+import org.denigma.binding.binders.GeneralBinder
+import org.denigma.binding.views.BindableView
 import org.querki.jquery._
 import org.scalajs.dom
 import org.scalajs.dom.raw.HTMLElement
 
-import scala.collection.immutable.Map
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSExport
-import scala.util.Try
+import org.denigma.binding.extensions._
 
 /**
  * Just a simple view for the whole app, if interested ( see https://github.com/antonkulaga/scala-js-binding )
@@ -16,9 +17,9 @@ import scala.util.Try
 object FrontEnd extends BindableView with scalajs.js.JSApp
 {
 
-  override def name = "main"
+  //override def name = "main"
 
-  override val params: Map[String, Any] = Map.empty
+  //override val params: Map[String, Any] = Map.empty
 
   lazy val elem: HTMLElement = dom.document.body
 
@@ -31,13 +32,16 @@ object FrontEnd extends BindableView with scalajs.js.JSApp
   /**
    * Register views
    */
-  ViewInjector
-    .register("sidebar", (el, params) =>Try(new SidebarView(el,params)))
+  override lazy val injector = defaultInjector
+      .register("sidebar"){
+        (el, params) => new SidebarView(el).withBinder(new GeneralBinder(_))
+      }
 
 
   @JSExport
   def main(): Unit = {
-    this.bindView(this.viewElement)
+    this.bindElement(this.viewElement)
+    this.bindView()
 
     Example.activate() //activate examples
   }
@@ -63,11 +67,12 @@ object FrontEnd extends BindableView with scalajs.js.JSApp
     }
   }
 
-  override def activateMacro(): Unit = {
+  /*override def activateMacro(): Unit = {
     extractors.foreach(_.extractEverything(this))
-  }
+  }*/
 
+  /*
   def attachBinders() = {
     this.binders = BindableView.defaultBinders(this)
-  }
+  }*/
 }

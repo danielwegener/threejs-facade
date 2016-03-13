@@ -6,6 +6,9 @@ import org.denigma.threejs.core.Object3D
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSName
 
+// TODO
+trait AnimationTrack
+
 /**
   * Reusable set of Tracks that represent an animation.
   */
@@ -42,10 +45,10 @@ object AnimationMixer {
 
   @js.native
   @JSName("THREE.AnimationMixer._Action")
-  class Action( mixer:AnimationMixer, clip:AnimationClip, localRoot:Object3D ) {
+  class Action( mixer:AnimationMixer, clip:AnimationClip, localRoot:Object3D) extends js.Object {
     var tracks: js.Array[AnimationTrack] = js.native
     var nTracks: Int = js.native
-    var interpolantSettings
+    var interpolantSettings = ??? // TODO continue
   }
 
 

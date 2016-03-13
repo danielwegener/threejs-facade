@@ -2,6 +2,7 @@ package org.denigma.preview
 
 import org.denigma.codemirror.extensions.EditorConfig
 import org.denigma.threejs.cameras.Camera
+import org.denigma.threejs.examples.renderers.CSS3DSprite
 import org.denigma.threejs.extras.geometries.BoxGeometry
 import org.denigma.threejs.lights.DirectionalLight
 import org.denigma.threejs.materials.{MeshLambertMaterial, MeshLambertMaterialParameters}
@@ -10,7 +11,6 @@ import org.denigma.threejs.objects.Mesh
 import org.denigma.threejs.scenes.Scene
 import org.denigma.threejs.extensions.Container3D
 import org.denigma.threejs.extensions.controls.{CameraControls, JumpCameraControls}
-import org.denigma.threejs.extras.CSS3DSprite
 import org.scalajs.dom.MouseEvent
 import org.scalajs.dom.raw.HTMLElement
 
@@ -80,7 +80,7 @@ class ExampleScene(val container:HTMLElement, val width:Double, val height:Doubl
 
   var sprites = List.empty[CSS3DSprite]
 
-  override val controls:CameraControls = new ExampleControls(camera,this.container,scene,width,height,this.meshes.head.position.clone())
+  override val controls:CameraControls = new ExampleControls(camera, this.container, scene, width, height, this.meshes.head.position.clone())
 
   val light = new DirectionalLight( 0xffffff, 2 )
   light.position.set( 1, 1, 1 ).normalize()

@@ -44,7 +44,8 @@ class LOD extends Object3D {
     * Clone a LOD Object.
     * @param `object` (optional) Object3D which needs to be cloned. If undefined, clone method will create a new cloned LOD Object.
     */
-  def clone(`object`: LOD = js.native): LOD = js.native
+  def clone(`object`: LOD): LOD = js.native
+  override def clone(): LOD = js.native
 }
 
 /**
@@ -75,7 +76,8 @@ class LensFlare(texture: Texture = js.native, size: Double = js.native, distance
     * Clone a LensFlare Object.
     * @param object (optional) LensFlare which needs to be cloned. If undefined, clone method will create a new cloned LensFlare Object.
     */
-  def clone(`object`: LensFlare = js.native): LensFlare = js.native
+  def clone(`object`: LensFlare): LensFlare = js.native
+  override def clone(): LensFlare = js.native
 }
 
 /**
@@ -94,14 +96,21 @@ class Line(var geometry: Geometry = js.native, var material: LineMaterial = js.n
 
 /**
   * Base class for Mesh objects, such as MorphAnimMesh and SkinnedMesh.
-  * @param geometry An instance of Geometry, defining the object's structure.
-  * @param material An instance of Material, defining the object's appearance.
-  *                 Default is a [[MeshBasicMaterial]] with wireframe mode enabled and randomised colour.
   * @see [[http://threejs.org/docs/#Reference/Objects/Mesh]]
   */
 @js.native
 @JSName("THREE.Mesh")
-class Mesh(var geometry: Geometry = js.native, var material: Material = js.native) extends Object3D {
+class Mesh extends Object3D {
+
+  /**
+   * @param geometry An instance of Geometry, defining the object's structure.
+   * @param material An instance of Material, defining the object's appearance.
+   *                 Default is a [[MeshBasicMaterial]] with wireframe mode enabled and randomised colour.
+   */
+  def this(geometry: Geometry = js.native, material: Material = js.native) = this()
+
+  var geometry: Geometry = js.native
+  var material: Material = js.native
 
   /** An array of weights typically from 0-1 that specify how much of the morph is applied.
     * Undefined by default, but reset to a blank array by updateMorphTargets. */
@@ -125,7 +134,8 @@ class Mesh(var geometry: Geometry = js.native, var material: Material = js.nativ
     * Clone a Mesh Object.
     * @param `object`  (optional) Object3D which needs to be cloned. If undefined, clone method will create a new cloned Mesh Object.
     */
-  def clone(`object`: Mesh = js.native): Mesh = js.native
+  def clone(`object`: Mesh): Mesh = js.native
+  override def clone(): Mesh = js.native
 }
 
 /**
@@ -206,7 +216,8 @@ class SkinnedMesh extends Mesh {
     * Clone a SkinnedMesh Object.
     * @param `object` (optional) Object3D which needs to be cloned. If undefined, clone method will create a new cloned SkinnedMesh Object.
     */
-  def clone(`object`: SkinnedMesh = js.native): SkinnedMesh = js.native
+  def clone(`object`: SkinnedMesh): SkinnedMesh = js.native
+  override def clone(): SkinnedMesh = js.native
 }
 
 /**
@@ -227,5 +238,6 @@ class Sprite(var material: Material = js.native) extends Object3D {
     * Clone a Sprite Object.
     * @param `object` (optional) Object3D which needs to be cloned. If undefined, clone method will create a new cloned Sprite Object.
     */
-  def clone(`object`: Sprite = js.native): Sprite = js.native
+  def clone(`object`: Sprite): Sprite = js.native
+  override def clone(): Sprite = js.native
 }
